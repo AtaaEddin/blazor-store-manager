@@ -11,7 +11,7 @@ namespace OnlineStoresManager.API
             return services
                 .OnlineStoresManagerGoods()
                 .OnlineStoresManagerCommon()
-                .OnlineStoresManagerIdentity(identityConfiguration)
+                .OnlineStoresManagerIdentity(identityConfiguration);
         }
 
         private static IServiceCollection OnlineStoresManagerGoods(this IServiceCollection services)

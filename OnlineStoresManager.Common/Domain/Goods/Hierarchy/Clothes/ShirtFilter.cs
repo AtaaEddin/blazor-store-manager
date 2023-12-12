@@ -1,7 +1,6 @@
 ﻿using OnlineStoresManager.Abstractions;
-using OnlineStoresManager.Goods;
 
-namespace OnlineStoresManager.Common.Domain.Goods.Hierarchy.Clothes
+namespace OnlineStoresManager.Goods
 {
     public class ShirtFilter : Pagination, IShirtFilter
     {
