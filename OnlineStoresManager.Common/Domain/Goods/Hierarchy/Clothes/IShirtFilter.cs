@@ -2,11 +2,9 @@
 
 namespace OnlineStoresManager.Goods
 {
-    public interface IShirtFilter : IPagination
+    public interface IShirtFilter : IBasicGoodFilter, IPagination
     {
-        string? SearchText { get; }
-        ShirtType ShirtType { get; }
-        int SortBy { get; }
-        SortOrder SortOrder { get; }
+        string? Color { get; }
+        ShirtType? ShirtType { get; }
     }
 }

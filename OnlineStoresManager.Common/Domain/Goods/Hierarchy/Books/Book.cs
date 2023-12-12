@@ -10,6 +10,6 @@ namespace OnlineStoresManager.Goods
             Discriminator = GoodDiscriminator.Books;
         }
         public string? Author { get; set; }
-        public BookType BookType { get; set; }
+        public BookType? BookType { get; set; }
     }
 }

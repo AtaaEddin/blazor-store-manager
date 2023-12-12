@@ -8,8 +8,11 @@ namespace OnlineStoresManager.Goods
         public const SortOrder DefaultSortOrder = SortOrder.Ascending;
 
         public GoodDiscriminator? Discriminator {  get; set; }
+        public GoodGategory? Gategory { get; set; }
         public string? SearchText { set; get; }
         public int SortBy { set; get; } = DefaultSortBy;
-        public SortOrder SortOrder => throw new System.NotImplementedException();
+        public SortOrder SortOrder {  set; get; } = DefaultSortOrder;
+        public decimal? MaxPrice { get; set; }
+        public decimal? MinPrice { get; set; }
     }
 }

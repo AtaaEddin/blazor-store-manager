@@ -1,4 +1,4 @@
-﻿namespace OnlineStoresManager.Common.Identity
+﻿namespace OnlineStoresManager.Identity
 {
     public static class Roles
     {

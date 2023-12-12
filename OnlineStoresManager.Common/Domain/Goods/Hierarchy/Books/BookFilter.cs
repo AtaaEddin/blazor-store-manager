@@ -8,8 +8,12 @@ namespace OnlineStoresManager.Goods
         public const SortOrder DefaultSortOrder = SortOrder.Ascending;
 
         public string? SearchText { set; get; }
-        public BookType BookType { get; set; }
+        public BookType? BookType { get; set; }
         public int SortBy { get; set; } = DefaultSortBy;
         public SortOrder SortOrder {  get; set; } = DefaultSortOrder;
+        public decimal? MaxPrice { set; get; }
+        public decimal? MinPrice { set; get; }
+        public GoodDiscriminator? Discriminator { set; get; }
+        public GoodGategory? Gategory { set; get; }
     }
 }

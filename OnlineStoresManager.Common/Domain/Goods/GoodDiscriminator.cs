@@ -3,7 +3,7 @@
     public enum GoodDiscriminator
     {
         Books = 1,
-        Clothes = 2,
-        Digital = 3,
+        Shirt = 2,
+        Laptop = 3,
     }
 }

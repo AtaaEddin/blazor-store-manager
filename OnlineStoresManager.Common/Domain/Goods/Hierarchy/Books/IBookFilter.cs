@@ -2,11 +2,8 @@
 
 namespace OnlineStoresManager.Goods
 {
-    internal interface IBookFilter : IPagination
+    internal interface IBookFilter : IBasicGoodFilter, IPagination
     {
-        string? SearchText { get; }
-        BookType BookType { get; }
-        int SortBy { get; }
-        SortOrder SortOrder { get; }
+        BookType? BookType { get; }
     }
 }

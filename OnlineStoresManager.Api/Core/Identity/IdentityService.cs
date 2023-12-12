@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.Tokens;
-using mudblazor.Common.Identity;
-using mudblazor.Identity;
+﻿using Microsoft.IdentityModel.Tokens;
+using OnlineStoresManager.API.Core.Identity;
+using OnlineStoresManager.Identity;
 using System.Security.Claims;
+using System.Text.Json;
 
 namespace OnlineStoresManager.API
 {

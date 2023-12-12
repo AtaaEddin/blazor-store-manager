@@ -8,9 +8,8 @@ namespace OnlineStoresManager.Goods
         {
             switch (Discriminator)
             {
-                //case GoodDiscriminator.Clothes: return new BasicGood();
-                //case GoodDiscriminator.Books: return new BasicGood();
-                //case GoodDiscriminator.Digital: return new BasicGood();
+                case GoodDiscriminator.Books: return new Book();
+                case GoodDiscriminator.Shirt: return new Shirt();
                 default: throw new ArgumentException($"Not supported good type {nameof(Discriminator)}");
             }
         }
@@ -20,7 +19,8 @@ namespace OnlineStoresManager.Goods
         {
             switch(typeof(TGood))
             {
-                //case Type type when type == typeof(Clothes):
+                case Type type when type == typeof(Book): return (TGood)Create(GoodDiscriminator.Books);
+                case Type type when type == typeof(Shirt): return (TGood)Create(GoodDiscriminator.Shirt);
                 default: throw new ArgumentException($"Not supported good type {typeof(TGood)}");
             }
         }
