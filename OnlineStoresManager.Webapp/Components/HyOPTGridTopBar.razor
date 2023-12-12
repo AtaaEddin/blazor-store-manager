@@ -1,0 +1,33 @@
+﻿@inherits HyOPTComponent
+
+<div class="row">
+    <div class="col-6">
+        @if (!string.IsNullOrEmpty(Title))
+        {
+            <h5 class="m-auto">@Title</h5>
+        }
+    </div>
+    <div class="col-6 text-end">
+        @if (OnExport.HasDelegate)
+        {
+            <TelerikDropDownButton>
+                <DropDownButtonContent>@Localizer["Export"]</DropDownButtonContent>
+                <DropDownButtonItems>
+                    @foreach (FileType fileType in Enum.GetValues<FileType>())
+                    {
+                        <DropDownButtonItem OnClick=@(e => Export(fileType))>
+                            @fileType.ToString().ToUpper()
+                        </DropDownButtonItem>
+                    }
+                </DropDownButtonItems>
+            </TelerikDropDownButton>
+        }
+        <span @onkeypress=@OnSearchTextBoxKeyPress>
+            <TelerikTextBox @bind-Value=@SearchText DebounceDelay=0 Placeholder=@Localizer["Search"] Class="me-2" Width="300px" />
+        </span>
+        @if (OnCreate.HasDelegate)
+        {
+            <TelerikButton OnClick=@OnCreate>@Localizer["Create"]</TelerikButton>
+        }
+    </div>
+</div>

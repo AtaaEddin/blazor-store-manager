@@ -1,0 +1,215 @@
+﻿@inherits HyOPTAwaitableComponent
+
+<TelerikDialog @ref=@DialogRef ShowCloseButton=false Visible=true Width="90%" Height="90%">
+    <DialogContent>
+        @if (IsLoading)
+        {
+            <TelerikLoader />
+        }
+        else if (Asset == null)
+        {
+            <h1>@Localizer["NotFound"]</h1>
+        }
+        else if (AssetContext != null)
+        {
+            <div class="h-100" style="overflow-x:hidden; overflow-y:visible;">
+                <TelerikForm EditContext=@AssetContext Orientation=@FormOrientation.Horizontal Columns="2" ColumnSpacing="25px">
+                    <FormValidation>
+                        <FluentValidationValidator Validator=@AssetValidator />
+                    </FormValidation>
+                    <FormButtons></FormButtons>
+                    <FormItems>
+                        <FormGroup>
+                            <FormItem>
+                                <Template>
+                                    <label class="k-label k-form-label" for="AssetId">@Localizer["AssetId"]</label>
+                                    <TelerikTextBox Value=@Asset.Id.ToString() ValueExpression=@(() => Asset.Name) Enabled=false />
+                                </Template>
+                            </FormItem>
+                            <FormItem Field=@nameof(Asset.Name)
+                                      EditorType=@FormEditorType.TextBox
+                                      LabelText=@Localizer["AssetName"] />
+                            <FormItem Field=@nameof(Asset.ShortName)
+                                      EditorType=@FormEditorType.TextBox
+                                      LabelText=@Localizer["AssetShortName"] />
+                            @if (MeteringPoints != null)
+                            {
+                                <FormItem>
+                                    <Template>
+                                        <label class="k-label k-form-label" for="MeteringPoint">@Localizer["MeteringPoint"]</label>
+                                        <TelerikDropDownList @bind-Value=@Asset.MeteringPoint
+                                                             Data=@MeteringPoints
+                                                             Filterable=true
+                                                             FilterOperator=@StringFilterOperator.Contains
+                                                             TextField="Code"
+                                                             ValueField="Code" />
+                                        <TelerikValidationMessage For=@(() => Asset.MeteringPoint) />
+                                    </Template>
+                                </FormItem>
+                            }
+                            @if (EnergyParks != null)
+                            {
+                                <FormItem>
+                                    <Template>
+                                        <label class="k-label k-form-label" for="EnergyParks">@Localizer["EnergyPark"]</label>
+                                        <TelerikDropDownList @bind-Value=@Asset.ParkId
+                                                             Data=@EnergyParks
+                                                             Filterable=true
+                                                             FilterOperator=@StringFilterOperator.Contains
+                                                             TextField="Name"
+                                                             ValueField="Id" />
+                                        <TelerikValidationMessage For=@(() => Asset.ParkId) />
+                                    </Template>
+                                </FormItem>
+                            }
+                            <FormItem Field=@nameof(Asset.Description)
+                                      EditorType=@FormEditorType.TextArea
+                                      LabelText=@Localizer["Description"] />
+                            <FormItem>
+                                <Template>
+                                    <label class="k-label k-form-label" for="GeoLatitude">@Localizer["GeoLat"]</label>
+                                    <input type="number" class="form-control" @bind-value=@Asset.Geo!.Latitude />
+                                    <TelerikValidationMessage For=@(() => Asset.Geo.Latitude) />
+                                </Template>
+                            </FormItem>
+                            <FormItem>
+                                <Template>
+                                    <label class="k-label k-form-label" for="GeoLongitude">@Localizer["GeoLong"]</label>
+                                    <input type="number" class="form-control" @bind-value=@Asset.Geo!.Longitude />
+                                    <TelerikValidationMessage For=@(() => Asset.Geo.Longitude) />
+                                </Template>
+                            </FormItem>
+                        </FormGroup>
+                        <FormGroup>
+                            <FormItem>
+                                <Template>
+                                    <div style="height:30px;" />
+                                </Template>
+                            </FormItem>
+                            <FormItem>
+                                <Template>
+                                    <label class="k-label k-form-label" for="AssetRegulation">@Localizer["AssetRegulation"]</label>
+                                    <TelerikDropDownList @bind-Value=@Asset.Regulation
+                                                         Data=@(new bool?[] { true, false })
+                                                         TItem="bool?"
+                                                         TValue="bool?">
+                                        <ItemTemplate>
+                                            @Localizer[context == true ? "YesMastrIdRegistered" : "NoMastrIdRegistered"]
+                                        </ItemTemplate>
+                                        <ValueTemplate>
+                                            @Localizer[context == true ? "YesMastrIdRegistered" : "NoMastrIdRegistered"]
+                                        </ValueTemplate>
+                                    </TelerikDropDownList>
+                                    <TelerikValidationMessage For=@(() => Asset.Regulation) />
+                                </Template>
+                            </FormItem>
+                            <FormItem>
+                                <Template>
+                                    <label class="k-label k-form-label" for="AssetType2">@Localizer["AssetType2"]</label>
+                                    <TelerikDropDownList @bind-Value=@Asset.Discriminator
+                                                         Data=@(Enum.GetValues<AssetDiscriminator>().ToList())
+                                                         Enabled=@IsNew
+                                                         TItem="AssetDiscriminator"
+                                                         TValue="AssetDiscriminator">
+                                        <ItemTemplate>@Localizer[$"AssetDiscriminator{context.ToString()}"]</ItemTemplate>
+                                        <ValueTemplate>@Localizer[$"AssetDiscriminator{context.ToString()}"]</ValueTemplate>
+                                    </TelerikDropDownList>
+                                    <TelerikValidationMessage For=@(() => Asset.Discriminator) />
+                                </Template>
+                            </FormItem>
+                            <FormItem>
+                                <Template>
+                                    <label class="k-label k-form-label" for="AssetType">@Localizer["AssetType"]</label>
+                                    <TelerikDropDownList @bind-Value=@Asset.Type
+                                                         Data=@(Enum.GetValues<AssetType>().Cast<AssetType?>())
+                                                         TItem="AssetType?"
+                                                         TValue="AssetType?"/>
+                                    <TelerikValidationMessage For=@(() => Asset.Type) />
+                                </Template>
+                            </FormItem>
+                            @switch(Asset)
+                            {
+                                case HydrogenStorageAsset hydro:
+                                    <FormItem>
+                                        <Template>
+                                            <label class="k-label k-form-label" for="CapacityKg">@Localizer["CapacityKg"]</label>
+                                            <TelerikNumericTextBox Value=@hydro.Capacity
+                                                                   ValueChanged=@(n => hydro.Capacity = n)
+                                                                   ValueExpression=@(() => hydro.Capacity)
+                                                                   T="double?" />
+                                            <TelerikValidationMessage For=@(() => hydro.Capacity) />
+                                        </Template>
+                                    </FormItem>
+                                    <FormItem>
+                                        <Template>
+                                            <label class="k-label k-form-label" for="MaxPressure">@Localizer["MaxPressure"]</label>
+                                            <TelerikNumericTextBox Value=@hydro.MaxPressure
+                                                                   ValueChanged=@(n => hydro.MaxPressure = n)
+                                                                   ValueExpression=@(() => hydro.MaxPressure)
+                                                                   T="double?" />
+                                            <TelerikValidationMessage For=@(() => hydro.MaxPressure) />
+                                        </Template>
+                                    </FormItem>
+                                    break;
+                                case ElektrolysisPlantAsset elektro:
+                                    <FormItem>
+                                        <Template>
+                                            <label class="k-label k-form-label" for="InstalledKg">@Localizer["InstalledKg"]</label>
+                                            <TelerikNumericTextBox Value=@elektro.Capacity
+                                                                   ValueChanged=@(n => elektro.Capacity = n)
+                                                                   ValueExpression=@(() => elektro.Capacity)
+                                                                   T="double?" />
+                                            <TelerikValidationMessage For=@(() => elektro.Capacity) />
+                                        </Template>
+                                    </FormItem>
+                                    <FormItem>
+                                        <Template>
+                                            <label class="k-label k-form-label" for="ElectrolyzersType">@Localizer["ElectrolyzersType"]</label>
+                                            <TelerikDropDownList @bind-Value=@elektro.ElectrolyzersType
+                                                                 Data=@(Enum.GetValues<ElektrolysisPlantAssetType>().Cast<ElektrolysisPlantAssetType?>())
+                                                                 TItem="ElektrolysisPlantAssetType?"
+                                                                 TValue="ElektrolysisPlantAssetType?" />
+                                            <TelerikValidationMessage For=@(() => elektro.ElectrolyzersType) />
+                                        </Template>
+                                    </FormItem>
+                                    break;
+                            }
+                        </FormGroup>
+                    </FormItems>
+                </TelerikForm>
+                @if (!IsNew)
+                {
+                    <TelerikTabStrip>
+                        <TabStripTab Title=@Localizer["MasterData"]>
+                            <MastrAssetList AssetMastrNr=@Asset.MastrNr Visible=@(!string.IsNullOrEmpty(Asset.MastrNr)) />
+                            @switch (Asset.Discriminator)
+                            {
+                                case AssetDiscriminator.ChargePoint:
+                                    <ChargePointList PageSize="5" />
+                                    break;
+                                case AssetDiscriminator.ElektrolysisPlant:
+                                    <ElektrolysisPlantAssetList PageSize="5" />
+                                    break;
+                                case AssetDiscriminator.HydrogenStorage:
+                                    <HydrogenStorageAssetList PageSize="5" />
+                                    break;
+                                case AssetDiscriminator.Windturbine:
+                                    <WindturbineAssetList PageSize="5" />
+                                    break;
+                            }
+                        </TabStripTab>
+                        <TabStripTab Title=@Localizer["MeteredData"]>
+                            <MeteringPointAnalytics MeteringPoint=@Asset.MeteringPoint Visible=@(!string.IsNullOrEmpty(Asset.MeteringPoint)) />
+                        </TabStripTab>
+                    </TelerikTabStrip>
+                }
+            </div>
+        }
+    </DialogContent>
+    <DialogButtons>
+        <div class="text-end">
+            <TelerikButton OnClick=@Close Enabled=@(!IsLoading)>@Localizer["Close"]</TelerikButton>
+            <TelerikButton OnClick=@Save Enabled=@(!IsLoading) ThemeColor="primary">@Localizer["Save"]</TelerikButton>
+        </div>
+    </DialogButtons>
+</TelerikDialog>

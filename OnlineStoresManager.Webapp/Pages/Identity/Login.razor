@@ -1,0 +1,27 @@
+﻿@page "/login"
+@inherits HyOPTAwaitableComponent
+@layout LoginLayout
+
+<TelerikForm EditContext=@RequestContext Orientation=@FormOrientation.Horizontal>
+    <FormValidation>
+        <FluentValidationValidator Validator=@RequestValidator />
+    </FormValidation>
+    <FormButtons></FormButtons>
+    <FormItems>
+        <FormItem>
+            <Template>
+                <label for="UserName" class="user-name">@Localizer["UserName"]</label>
+                <TelerikTextBox @bind-Value=@Request!.UserName />
+                <TelerikValidationMessage For=@(() => Request.UserName) />
+            </Template>
+        </FormItem>
+        <FormItem>
+            <Template>
+                <label for="Password" class="password">@Localizer["Password"]</label>
+                <TelerikTextBox @bind-Value=@Request!.Password Password=true />
+                <TelerikValidationMessage For=@(() => Request.Password) />
+            </Template>
+        </FormItem>
+    </FormItems>
+</TelerikForm>
+<TelerikButton OnClick=@SubmitLogin ThemeColor="primary">@Localizer["Login"]</TelerikButton>

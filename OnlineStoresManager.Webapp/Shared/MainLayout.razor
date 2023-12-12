@@ -1,0 +1,27 @@
+﻿@inherits LayoutComponentBase
+
+<TelerikRootComponent>
+    <HyOPTDialogRenderer />
+    <div class="page">
+        <div class="sidebar">
+            <NavMenu />
+        </div>
+        <main>
+            <div class="top-row px-4">
+                <div class="d-inline-block w-100 text-center mx-5">
+                    <h3>H2 Agrar MultiUse Demonstrator v0.8</h3>
+                </div>
+                <LoginInfo />
+                <div class="d-inline-block">
+                    <CultureSelector />
+                </div>
+                <div class="d-inline-block ms-2">
+                    <ThemeSelector />
+                </div>
+            </div>
+            <article class="content px-4">
+                @Body
+            </article>
+        </main>
+    </div>
+</TelerikRootComponent>

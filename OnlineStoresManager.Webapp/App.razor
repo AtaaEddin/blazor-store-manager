@@ -1,0 +1,26 @@
+@inherits HyOPTComponent
+
+<CascadingAuthenticationState>
+    <Router AppAssembly=@typeof(App).Assembly>
+        <Found Context="routeData">
+            <AuthorizeRouteView RouteData=@routeData DefaultLayout=@typeof(MainLayout)>
+                <NotAuthorized>
+                    @if (context.User.Identity?.IsAuthenticated == true)
+                    {
+                        <p>@Localizer["NotAuthorizedMessage"]</p>
+                    }
+                    else
+                    {
+                        <RedirectToLogin />
+                    }
+                </NotAuthorized>
+            </AuthorizeRouteView>
+        </Found>
+        <NotFound>
+            <PageTitle>@Localizer["NotFound"]</PageTitle>
+            <LayoutView Layout=@typeof(MainLayout)>
+                <p role="alert">@Localizer["NotFoundPageMessage"]</p>
+            </LayoutView>
+        </NotFound>
+    </Router>
+</CascadingAuthenticationState>

@@ -1,0 +1,8 @@
+﻿@inherits HyOPTAwaitableComponent
+
+<TelerikSwitch OffLabel=@Localizer["Light"]
+               OnLabel=@Localizer["Dark"]
+               TValue="bool"
+               Value=@IsDarkTheme
+               ValueChanged=@ToggleTheme
+               Width="70px" />

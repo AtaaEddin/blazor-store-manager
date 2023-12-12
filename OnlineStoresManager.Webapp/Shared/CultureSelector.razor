@@ -1,0 +1,11 @@
+﻿@inherits HyOPTComponent
+
+<TelerikDropDownList Data=@SupportedCultures
+                     Class="ms-2"
+                     TextField="Value"
+                     TItem="KeyValuePair<string, string>"
+                     TValue="string"
+                     Value=@CurrentCultureName
+                     ValueChanged=@OnChanged
+                     ValueField="Key"
+                     Width="120px;" />

@@ -1,0 +1,12 @@
+﻿@inherits HyOPTComponent
+
+<AuthorizeView>
+    <Authorized>
+        <div class="d-flex align-items-center">
+            <span class="me-2">
+                @context.User.FindFirst(Claims.UniqueName)?.Value
+            </span>
+            <TelerikButton OnClick=@Logout ThemeColor="primary">@Localizer["Logout"]</TelerikButton>
+        </div>
+    </Authorized>
+</AuthorizeView>
