@@ -52,9 +52,24 @@ namespace OnlineStoresManager.API.Goods
                 && (filter.SearchText == null || (b.Author != null && b.Author == filter.SearchText)));
         }
 
-        public static IQueryable<BasicGood> SortBy(IQueryable<BasicGood> goods, IBasicGoodFilter filter)
+        public static IQueryable<BasicGood> SortBy(this IQueryable<BasicGood> goods, IBasicGoodFilter filter)
         {
-            goods = goods.SortByInternal(filter);
+            switch((BasicGoodFieldIdentifier)filter.SortBy)
+            {
+                case BasicGoodFieldIdentifier.Discriminator:
+                    return goods.OrderBy(g => g.Discriminator, filter.SortOrder);
+
+                case BasicGoodFieldIdentifier.Price:
+                    return goods.OrderBy(g => g.Price, filter.SortOrder);
+
+                case BasicGoodFieldIdentifier.Name:
+                    return goods.OrderBy(g => g.Name, filter.SortOrder);
+
+                case BasicGoodFieldIdentifier.Category:
+                    return goods.OrderBy(g => g.Gategory, filter.SortOrder);
+
+                default: break;
+            }
 
             switch (filter.Discriminator)
             {
@@ -72,26 +87,6 @@ namespace OnlineStoresManager.API.Goods
             }
         }
 
-        private static IQueryable<BasicGood> SortByInternal(this IQueryable<BasicGood> goods, IBasicGoodFilter filter)
-        {
-            switch((BasicGoodFieldIdentifier)filter.SortBy)
-            {
-                case BasicGoodFieldIdentifier.Discriminator:
-                    return goods.OrderBy(g => g.Discriminator, filter.SortOrder);
-
-                case BasicGoodFieldIdentifier.Price:
-                    return goods.OrderBy(g => g.Price, filter.SortOrder);
-
-                case BasicGoodFieldIdentifier.Name:
-                    return goods.OrderBy(g => g.Name, filter.SortOrder);
-
-                case BasicGoodFieldIdentifier.Category:
-                    return goods.OrderBy(g => g.Gategory, filter.SortOrder);
-
-                default: return goods;
-            }
-        }
-
         private static IQueryable<Shirt> SortByInternal(this IQueryable<Shirt> shirts, IBasicGoodFilter filter)
         {
             switch ((ShirtFieldIdentifier)filter.SortBy)
@@ -102,7 +97,7 @@ namespace OnlineStoresManager.API.Goods
                     return shirts.OrderBy(s => s.Color, filter.SortOrder);
 
                 default:
-                    throw new ArgumentException($"Not supported field indetifier {filter.SortBy}.");
+                    throw new ArgumentException($"Not supported field identifier {filter.SortBy}.");
             }
         }
 
@@ -116,7 +111,7 @@ namespace OnlineStoresManager.API.Goods
                     return books.OrderBy(b => b.Author, filter.SortOrder);
 
                 default:
-                    throw new ArgumentException($"Not supported field indetifier {filter.SortBy}.");
+                    throw new ArgumentException($"Not supported field identifier {filter.SortBy}.");
             }
         }
     }

@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using OnlineStoresManager.Abstractions;
 using OnlineStoresManager.API.Db;
 using OnlineStoresManager.Goods;
 
 namespace OnlineStoresManager.API.Goods
 {
-    internal class GoodStore
+    public class GoodStore
     {
         private readonly AppDbContext _dbContext;
 
@@ -55,5 +56,4 @@ namespace OnlineStoresManager.API.Goods
             return _dbContext.SaveChangesAsync();
         }
     }
-}
 }

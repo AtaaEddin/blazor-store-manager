@@ -1,14 +1,10 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using OnlineStoresManager.Abstractions;
 using OnlineStoresManager.API;
+using OnlineStoresManager.API.Db;
 using Serilog;
-
-using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -24,7 +20,6 @@ try
 {
     WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
     IdentityConfiguration identityConfiguration = builder.Configuration.Bind<IdentityConfiguration>("Identity");
-    ScenarioConfiguration scenarioConfiguration = builder.Configuration.Bind<ScenarioConfiguration>("Scenarios");
 
     builder.Services
         .AddControllersWithViews()
@@ -38,11 +33,11 @@ try
         });
 
     builder.Services.AddRazorPages();
-    builder.Services.AddHyOPTCore(identityConfiguration, scenarioConfiguration);
+    builder.Services.AddOnlineStoresManagerCore(identityConfiguration);
 
     builder.Services
-        .AddDbContext<PriceDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("PriceDb")))
-        .AddDbContext<MastrDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MastrDb")));
+        .AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("OnlineStoresManagerDb")));
+
 
     builder.Services
         .AddAuthentication(options =>
@@ -82,7 +77,7 @@ try
     }
 
     app.UseHttpsRedirection();
-    app.UseBlazorFrameworkFiles();
+    //app.UseBlazorFrameworkFiles();
     app.UseStaticFiles();
     app.UseRouting();
     app.UseAuthentication();

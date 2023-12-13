@@ -4,7 +4,7 @@ namespace OnlineStoresManager.API
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection OnlineStoresManagerCore(
+        public static IServiceCollection AddOnlineStoresManagerCore(
             this IServiceCollection services,
             IdentityConfiguration identityConfiguration)
         {
@@ -18,7 +18,7 @@ namespace OnlineStoresManager.API
         {
             return services
                 .AddScoped<GoodStore>()
-                .AddScoped<IAssetManager, AssetManager>()
+                .AddScoped<IGoodManager, GoodManager>();
         }
 
         private static IServiceCollection OnlineStoresManagerCommon(this IServiceCollection services)
