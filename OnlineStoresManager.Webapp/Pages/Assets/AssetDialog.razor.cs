@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
 
-using HyOPT.Abstractions;
-using HyOPT.Assets;
-using HyOPT.EnergyParks;
-using HyOPT.Meterings;
+using OnlineStoresManager.Abstractions;
+using OnlineStoresManager.Assets;
+using OnlineStoresManager.EnergyParks;
+using OnlineStoresManager.Meterings;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -14,9 +14,9 @@ using System.Threading.Tasks;
 
 using Telerik.Blazor.Components;
 
-namespace HyOPT.Web.App.Pages.Assets
+namespace OnlineStoresManager.Web.App.Pages.Assets
 {
-    public partial class AssetDialog : HyOPTAwaitableComponent
+    public partial class AssetDialog : OnlineStoresManagerAwaitableComponent
     {
         [Parameter]
         public AssetDiscriminator? Discriminator { get; set; }

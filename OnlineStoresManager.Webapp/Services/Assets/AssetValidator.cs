@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
 
-using HyOPT.Assets;
-using HyOPT.Web.App.Localization;
+using OnlineStoresManager.Assets;
+using OnlineStoresManager.Web.App.Localization;
 
-namespace HyOPT.Web.App
+namespace OnlineStoresManager.Web.App
 {
     public class AssetValidator : AssetValidator<Asset> { }
 

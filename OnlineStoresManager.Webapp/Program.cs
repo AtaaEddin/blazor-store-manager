@@ -1,9 +1,7 @@
-using HyOPT.Abstractions;
-
 using Blazored.LocalStorage;
 
-using HyOPT.Web.App;
-using HyOPT.Web.App.Components;
+using OnlineStoresManager.Web.App;
+using OnlineStoresManager.Web.App.Components;
 
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -19,8 +17,8 @@ builder.Services.AddLocalization();
 builder.Services.AddAuthorizationCore();
 builder.Services.AddTelerikBlazor();
 builder.Services.AddBlazoredLocalStorage();
-builder.Services.AddHyOPTComponents();
-builder.Services.AddHyOPTCore(
+builder.Services.AddOnlineStoresManagerComponents();
+builder.Services.AddOnlineStoresManagerCore(
     environment: builder.HostEnvironment,
     energyParkConfiguration: builder.Configuration.Bind<EnergyParkConfiguration>("EnergyParks"),
     marketConfiguration: builder.Configuration.Bind<MarketConfiguration>("Markets"),

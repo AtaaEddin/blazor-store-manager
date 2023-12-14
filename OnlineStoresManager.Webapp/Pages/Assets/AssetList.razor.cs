@@ -1,9 +1,9 @@
-﻿using HyOPT.Abstractions;
-using HyOPT.Assets;
-using HyOPT.Identity;
-using HyOPT.Mastr.Assets;
+﻿using OnlineStoresManager.Abstractions;
+using OnlineStoresManager.Assets;
+using OnlineStoresManager.Identity;
+using OnlineStoresManager.Mastr.Assets;
 
-using HyOPT.Web.App.Pages.Mastr;
+using OnlineStoresManager.Web.App.Pages.Mastr;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -14,9 +14,9 @@ using System.Threading.Tasks;
 
 using Telerik.Blazor.Components;
 
-namespace HyOPT.Web.App.Pages.Assets
+namespace OnlineStoresManager.Web.App.Pages.Assets
 {
-    public partial class AssetList : HyOPTAwaitableComponent
+    public partial class AssetList : OnlineStoresManagerAwaitableComponent
     {
         [Parameter]
         public int? PageSize { get; set; }

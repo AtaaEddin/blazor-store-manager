@@ -3,7 +3,7 @@ using System;
 
 namespace OnlineStoresManager.WebApp
 {
-    public class HyOPTAwaitableComponent : HyOPTComponent
+    public class OnlineStoresManagerAwaitableComponent : OnlineStoresManagerComponent
     {
         protected bool IsLoading { get; set; }
 

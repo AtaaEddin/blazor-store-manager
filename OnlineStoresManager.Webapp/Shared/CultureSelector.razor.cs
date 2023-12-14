@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
 
-namespace HyOPT.Web.App.Shared
+namespace OnlineStoresManager.Web.App.Shared
 {
-    public partial class CultureSelector : HyOPTComponent
+    public partial class CultureSelector : OnlineStoresManagerComponent
     {
         protected IDictionary<string, string> SupportedCultures = new Dictionary<string, string>
         {

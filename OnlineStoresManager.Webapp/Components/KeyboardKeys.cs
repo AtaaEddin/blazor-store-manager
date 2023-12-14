@@ -1,4 +1,4 @@
-﻿namespace HyOPT.Web.App
+﻿namespace OnlineStoresManager.Web.App
 {
     public static class KeyboardKeys
     {

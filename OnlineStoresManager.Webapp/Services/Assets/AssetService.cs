@@ -1,12 +1,12 @@
-﻿using HyOPT.Abstractions;
-using HyOPT.Assets;
+﻿using OnlineStoresManager.Abstractions;
+using OnlineStoresManager.Assets;
 
 using System;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace HyOPT.Web.App
+namespace OnlineStoresManager.Web.App
 {
     public class AssetService : ServiceClient
     {

@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 
 namespace OnlineStoresManager.WebApp.Components.Dialog
 {
-    public class HyOPTDialogService
+    public class OnlineStoresManagerDialogService
     {
         internal EventCallback OnClose;
-        internal EventCallback<HyOPTDialogShowEventArgs> OnShow;
+        internal EventCallback<OnlineStoresManagerDialogShowEventArgs> OnShow;
 
         public Task Close()
         {
@@ -15,9 +15,9 @@ namespace OnlineStoresManager.WebApp.Components.Dialog
         }
 
         public Task Show<TComponent>(IDictionary<string, object> parameters)
-            where TComponent : HyOPTComponent
+            where TComponent : OnlineStoresManagerComponent
         {
-            HyOPTDialogShowEventArgs args = new HyOPTDialogShowEventArgs(typeof(TComponent), parameters);
+            OnlineStoresManagerDialogShowEventArgs args = new OnlineStoresManagerDialogShowEventArgs(typeof(TComponent), parameters);
 
             return OnShow.InvokeAsync(args);
         }

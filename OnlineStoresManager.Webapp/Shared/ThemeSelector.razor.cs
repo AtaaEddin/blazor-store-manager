@@ -2,9 +2,9 @@
 
 using System.Threading.Tasks;
 
-namespace HyOPT.Web.App.Shared
+namespace OnlineStoresManager.Web.App.Shared
 {
-    public partial class ThemeSelector : HyOPTAwaitableComponent
+    public partial class ThemeSelector : OnlineStoresManagerAwaitableComponent
     {
         private const string DarkTheme = "dark";
         private const string LightTheme = "light";

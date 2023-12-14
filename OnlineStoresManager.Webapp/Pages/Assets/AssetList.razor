@@ -1,11 +1,11 @@
 ﻿@page "/assets"
 @attribute [Authorize(Roles = Roles.Administrator)]
-@inherits HyOPTAwaitableComponent
+@inherits OnlineStoresManagerAwaitableComponent
 
 <PageTitle>@Localizer["Assets"]</PageTitle>
 
 <div class="mb-3">
-    <HyOPTGridTopBar @bind-SearchText=@Filter.SearchText
+    <OnlineStoresManagerGridTopBar @bind-SearchText=@Filter.SearchText
                      @bind-SearchText:after=@RefreshGrid
                      OnCreate=@ShowCreateDialog
                      OnExport=@Export

@@ -1,4 +1,4 @@
-﻿namespace HyOPT.Web.App.Pages
+﻿namespace OnlineStoresManager.Web.App.Pages
 {
     public partial class Index
     {

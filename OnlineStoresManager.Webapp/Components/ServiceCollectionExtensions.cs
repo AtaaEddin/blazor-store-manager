@@ -1,13 +1,13 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using OnlineStoresManager.WebApp.Components.Dialog;
 
-namespace HyOPT.Web.App.Components
+namespace OnlineStoresManager.Web.App.Components
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddHyOPTComponents(this IServiceCollection services)
+        public static IServiceCollection AddOnlineStoresManagerComponents(this IServiceCollection services)
         {
-            return services.AddScoped<HyOPTDialogService>();
+            return services.AddScoped<OnlineStoresManagerDialogService>();
         }
     }
 }

@@ -5,25 +5,25 @@ using System;
 
 namespace OnlineStoresManager.WebApp
 {
-    public partial class HyOPTDialogRenderer : HyOPTComponent
+    public partial class OnlineStoresManagerDialogRenderer : OnlineStoresManagerComponent
     {
         [Inject]
-        protected HyOPTDialogService Service { get; set; } = null!;
+        protected OnlineStoresManagerDialogService Service { get; set; } = null!;
 
-        private readonly Stack<HyOPTDialogShowEventArgs> _dialogStack;
+        private readonly Stack<OnlineStoresManagerDialogShowEventArgs> _dialogStack;
         protected IDictionary<string, object>? DialogParameters;
         protected Type? DialogType;
 
-        public HyOPTDialogRenderer()
+        public OnlineStoresManagerDialogRenderer()
         {
-            _dialogStack = new Stack<HyOPTDialogShowEventArgs>();
+            _dialogStack = new Stack<OnlineStoresManagerDialogShowEventArgs>();
             Visible = false;
         }
 
         protected override void OnInitialized()
         {
             Service.OnClose = EventCallback.Factory.Create(this, Close);
-            Service.OnShow = EventCallback.Factory.Create<HyOPTDialogShowEventArgs>(this, Show);
+            Service.OnShow = EventCallback.Factory.Create<OnlineStoresManagerDialogShowEventArgs>(this, Show);
         }
 
         private void Close()
@@ -31,7 +31,7 @@ namespace OnlineStoresManager.WebApp
             if (_dialogStack.Count >= 2)
             {
                 _dialogStack.Pop();
-                HyOPTDialogShowEventArgs args = _dialogStack.Peek();
+                OnlineStoresManagerDialogShowEventArgs args = _dialogStack.Peek();
                 ShowDialog(args);
             }
             else
@@ -43,14 +43,14 @@ namespace OnlineStoresManager.WebApp
             StateHasChanged();
         }
 
-        private void Show(HyOPTDialogShowEventArgs args)
+        private void Show(OnlineStoresManagerDialogShowEventArgs args)
         {
             _dialogStack.Push(args);
             ShowDialog(args);
             StateHasChanged();
         }
 
-        private void ShowDialog(HyOPTDialogShowEventArgs args)
+        private void ShowDialog(OnlineStoresManagerDialogShowEventArgs args)
         {
             DialogParameters = args.Parameters;
             DialogType = args.Type;
@@ -60,7 +60,7 @@ namespace OnlineStoresManager.WebApp
         protected override void Dispose(bool disposing)
         {
             Service.OnClose = EventCallback.Empty;
-            Service.OnShow = EventCallback<HyOPTDialogShowEventArgs>.Empty;
+            Service.OnShow = EventCallback<OnlineStoresManagerDialogShowEventArgs>.Empty;
 
             base.Dispose(disposing);
         }

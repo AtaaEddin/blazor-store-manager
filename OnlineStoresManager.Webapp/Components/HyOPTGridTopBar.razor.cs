@@ -1,12 +1,12 @@
-﻿using HyOPT.Abstractions;
+﻿using OnlineStoresManager.Abstractions;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using System.Threading.Tasks;
 
-namespace HyOPT.Web.App.Components
+namespace OnlineStoresManager.Web.App.Components
 {
-    public partial class HyOPTGridTopBar : HyOPTComponent
+    public partial class OnlineStoresManagerGridTopBar : OnlineStoresManagerComponent
     {
         [Parameter]
         public EventCallback OnCreate { get; set; }

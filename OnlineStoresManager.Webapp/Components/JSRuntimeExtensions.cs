@@ -1,11 +1,11 @@
-﻿using HyOPT.Abstractions;
+﻿using OnlineStoresManager.Abstractions;
 
 using Microsoft.JSInterop;
 
 using System.IO;
 using System.Threading.Tasks;
 
-namespace HyOPT.Web.App
+namespace OnlineStoresManager.Web.App
 {
     public static class JSRuntimeExtensions
     {

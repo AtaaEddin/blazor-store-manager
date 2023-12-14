@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -42,6 +42,10 @@
 
   <ItemGroup>
     <Folder Include="Localization\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OnlineStoresManager.Common\OnlineStoresManager.Common.csproj" />
   </ItemGroup>
   
 </Project>

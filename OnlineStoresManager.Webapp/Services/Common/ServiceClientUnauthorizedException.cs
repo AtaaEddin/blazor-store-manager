@@ -1,6 +1,6 @@
 ﻿using System.Net.Http;
 
-namespace HyOPT.Web.App
+namespace OnlineStoresManager.Web.App
 {
     public class ServiceClientUnauthorizedException : ServiceClientException
     {

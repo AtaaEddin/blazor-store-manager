@@ -34,7 +34,7 @@ namespace OnlineStoresManager.API.Controllers
         }
 
         //[HttpPost("api/goods/export")]
-        //public async Task<IActionResult> Export([FromBody] FileExportRequest<BasicGood, BasicGoodFilter> request)
+        //public async Task<IActionResult> Export([FromBody] FileExportRequest<BasicGood, IBasicGoodFilter > request)
         //{
         //    IPage<BasicGood> goods = await _manager.Find(request.Filter);
         //    FileBytes file = await _fileExporter.Export(goods, request.Configuration);
@@ -43,7 +43,7 @@ namespace OnlineStoresManager.API.Controllers
         //}
 
         [HttpPost("api/goods/find")]
-        public async Task<IActionResult> Find([FromBody] BasicGoodFilter filter)
+        public async Task<IActionResult> Find([FromBody] IBasicGoodFilter filter)
         {
             IPage<BasicGood> goods = await _manager.Find(filter);
 

@@ -1,12 +1,12 @@
-﻿using HyOPT.Identity;
+﻿using OnlineStoresManager.Identity;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using System.Threading.Tasks;
 
-namespace HyOPT.Web.App.Pages.Identity
+namespace OnlineStoresManager.Web.App.Pages.Identity
 {
-    public partial class Login : HyOPTAwaitableComponent
+    public partial class Login : OnlineStoresManagerAwaitableComponent
     {
         [Inject]
         public LoginRequestValidator RequestValidator { get; set; } = null!;

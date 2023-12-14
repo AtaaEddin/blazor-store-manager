@@ -1,4 +1,4 @@
-﻿using HyOPT.Identity;
+﻿using OnlineStoresManager.Identity;
 
 using Microsoft.AspNetCore.Components.Authorization;
 
@@ -7,7 +7,7 @@ using System.Security.Claims;
 
 using System.Threading.Tasks;
 
-namespace HyOPT.Web.App
+namespace OnlineStoresManager.Web.App
 {
     public class IdentityStateProvider : AuthenticationStateProvider
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace HyOPT.Web.App
+namespace OnlineStoresManager.Web.App
 {
     public static class NavigationManagerExtensions
     {

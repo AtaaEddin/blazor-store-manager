@@ -7,7 +7,7 @@ using System;
 
 namespace OnlineStoresManager.WebApp
 { 
-    public class HyOPTComponent : ComponentBase, IDisposable
+    public class OnlineStoresManagerComponent : ComponentBase, IDisposable
     {
         [Parameter]
         public string ComponentId { get; set; } = Guid.NewGuid().ToString("N");
@@ -19,7 +19,7 @@ namespace OnlineStoresManager.WebApp
         public DialogFactory DialogFactory { get; set; } = null!;
 
         [Inject]
-        public HyOPTDialogService DialogService { get; set; } = null!;
+        public OnlineStoresManagerDialogService DialogService { get; set; } = null!;
 
         [Inject]
         protected IJSRuntime Js { get; set; } = null!;

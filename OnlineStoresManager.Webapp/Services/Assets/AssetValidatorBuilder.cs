@@ -1,12 +1,12 @@
 ﻿using FluentValidation;
 
-using HyOPT.Assets;
+using OnlineStoresManager.Assets;
 
 using Microsoft.Extensions.DependencyInjection;
 
 using System;
 
-namespace HyOPT.Web.App
+namespace OnlineStoresManager.Web.App
 {
     public class AssetValidatorBuilder
     {

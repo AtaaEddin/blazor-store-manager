@@ -4,7 +4,7 @@ using System.Net.Http.Json;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace HyOPT.Web.App
+namespace OnlineStoresManager.Web.App
 {
     public abstract class ServiceClient
     {

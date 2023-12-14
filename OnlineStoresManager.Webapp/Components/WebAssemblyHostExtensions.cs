@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Globalization;
 using System.Threading.Tasks;
 
-namespace HyOPT.Web.App
+namespace OnlineStoresManager.Web.App
 {
     public static class WebAssemblyHostExtensions
     {

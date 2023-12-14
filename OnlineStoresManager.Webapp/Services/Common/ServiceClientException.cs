@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 
-namespace HyOPT.Web.App
+namespace OnlineStoresManager.Web.App
 {
     public class ServiceClientException : Exception
     {

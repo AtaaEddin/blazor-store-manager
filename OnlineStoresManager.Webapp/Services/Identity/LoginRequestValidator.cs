@@ -1,10 +1,7 @@
 ﻿using FluentValidation;
+using OnlineStoresManager.Identity;
 
-using HyOPT.Identity;
-using HyOPT.Web.App.Localization;
-using mudblazor.Identity;
-
-namespace HyOPT.Web.App
+namespace OnlineStoresManager.Web.App
 {
     public class LoginRequestValidator : AbstractValidator<LoginRequest>
     {

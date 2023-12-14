@@ -2,9 +2,9 @@
 
 using System.Threading.Tasks;
 
-namespace HyOPT.Web.App.Pages.Identity
+namespace OnlineStoresManager.Web.App.Pages.Identity
 {
-    public partial class LoginInfo : HyOPTComponent
+    public partial class LoginInfo : OnlineStoresManagerComponent
     {
         [Inject]
         public IdentityManager Manager { get; set; } = null!;
