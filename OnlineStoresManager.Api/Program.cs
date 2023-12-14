@@ -36,8 +36,8 @@ try
     builder.Services.AddOnlineStoresManagerCore(identityConfiguration);
 
     builder.Services
-        .AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("OnlineStoresManagerDb")));
-
+        .AddDbContext<AppDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("OnlineStoresManagerDb")));
+    builder.Services.AddScoped<AppDbContextInitialiser>();
 
     builder.Services
         .AddAuthentication(options =>
@@ -65,6 +65,8 @@ try
     builder.Logging.AddSerilog(Log.Logger);
 
     WebApplication app = builder.Build();
+
+    await app.InitialiseDatabaseAsync();
 
     if (app.Environment.IsDevelopment())
     {

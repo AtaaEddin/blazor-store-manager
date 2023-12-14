@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using OnlineStoresManager.Goods;
 
 namespace OnlineStoresManager.API.Db
@@ -23,7 +24,6 @@ namespace OnlineStoresManager.API.Db
                 good.HasKey(g => g.Id);
 
                 good.Property(g => g.Name)
-                  .IsRequired()
                   .HasColumnName("Name");
 
                 good.Property(g => g.Price)
@@ -32,8 +32,13 @@ namespace OnlineStoresManager.API.Db
                 good.Property(g => g.ImageUrls)
                     .HasConversion(
                     l => l != null ? string.Join(BasicGood.ImageUrlSeparetor, l) : null,
-                    s => s != null ? s.Trim().Split(BasicGood.ImageUrlSeparetor, StringSplitOptions.TrimEntries).ToList() : null)
+                    s => s != null ? s.Trim().Split(BasicGood.ImageUrlSeparetor, StringSplitOptions.TrimEntries).ToList() : null,
+                    new ValueComparer<List<string>>(
+                            (c1, c2) => c1.SequenceEqual(c2),
+                            c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
+                            c => c.ToList()))
                     .HasColumnName("ImageUrls");
+                    
 
                 good.Property(g => g.Description)
                     .HasColumnName("Description");
@@ -45,6 +50,9 @@ namespace OnlineStoresManager.API.Db
                     .HasColumnName("GoodGategory");
 
                 good.Property(g => g.Discriminator)
+                    .HasConversion(
+                    t => t != null ? t.Value.ToString().ToLower() : null,
+                    s => s != null ? Enum.Parse<GoodDiscriminator>(s, true) : null)
                     .HasColumnName("GoodType");
             });
 
