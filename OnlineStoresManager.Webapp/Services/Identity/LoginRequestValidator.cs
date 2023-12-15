@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using OnlineStoresManager.Identity;
 
-namespace OnlineStoresManager.Web.App
+namespace OnlineStoresManager.WebApp
 {
     public class LoginRequestValidator : AbstractValidator<LoginRequest>
     {

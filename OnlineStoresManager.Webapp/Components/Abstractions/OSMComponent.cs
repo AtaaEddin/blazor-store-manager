@@ -1,13 +1,15 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
-using mudblazor.Abstractions;
 using System.Threading.Tasks;
 using System;
+using OnlineStoresManager.WebApp.Components.Dialog;
+using OnlineStoresManager.Abstractions;
+using MudBlazor;
 
 namespace OnlineStoresManager.WebApp
 { 
-    public class OnlineStoresManagerComponent : ComponentBase, IDisposable
+    public class OSMComponent : ComponentBase, IDisposable
     {
         [Parameter]
         public string ComponentId { get; set; } = Guid.NewGuid().ToString("N");
@@ -15,11 +17,11 @@ namespace OnlineStoresManager.WebApp
         [Parameter]
         public bool Visible { get; set; } = true;
 
-        [CascadingParameter]
-        public DialogFactory DialogFactory { get; set; } = null!;
+        [Inject]
+        public IDialogService DialogService { get; set; } = null!;
 
         [Inject]
-        public OnlineStoresManagerDialogService DialogService { get; set; } = null!;
+        public OSMDialogService OSMDialogService { get; set; } = null!;
 
         [Inject]
         protected IJSRuntime Js { get; set; } = null!;

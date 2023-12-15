@@ -5,7 +5,7 @@ using Microsoft.JSInterop;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace OnlineStoresManager.Web.App
+namespace OnlineStoresManager.WebApp
 {
     public static class JSRuntimeExtensions
     {

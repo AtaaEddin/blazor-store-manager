@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace OnlineStoresManager.Web.App
+namespace OnlineStoresManager.WebApp
 {
     public class IdentityService : ServiceClient
     {

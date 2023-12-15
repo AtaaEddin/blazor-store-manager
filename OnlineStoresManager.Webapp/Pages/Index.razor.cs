@@ -1,4 +1,4 @@
-﻿namespace OnlineStoresManager.Web.App.Pages
+﻿namespace OnlineStoresManager.WebApp.Pages
 {
     public partial class Index
     {

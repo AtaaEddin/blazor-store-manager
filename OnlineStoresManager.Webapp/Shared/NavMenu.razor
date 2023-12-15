@@ -1,6 +1,16 @@
-﻿@inherits OnlineStoresManagerComponent
+﻿@inherits OSMComponent
 
-<div class="top-row ps-3 navbar navbar-dark bg-white">
+<MudNavMenu>
+    <AuthorizeView Roles=@Roles.Administrator>
+        <Authorized>
+            <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">@Localizer["Home"]</MudNavLink>
+            <MudNavLink Href="books" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Add">@Localizer["Books"]</MudNavLink>
+            <MudNavLink Href="shirts" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Add">@Localizer["Shirts"]</MudNavLink>
+        </Authorized>
+    </AuthorizeView>
+</MudNavMenu>
+
+@* <div class="top-row ps-3 navbar navbar-dark bg-white">
     <div class="container-fluid">
         <img src="logo.png" style="width:100px" />
         <button title="Navigation menu" class="navbar-toggler" @onclick=@ToggleNavMenu>
@@ -123,4 +133,4 @@
             </Authorized>
         </AuthorizeView>
     </nav>
-</div>
+</div> *@

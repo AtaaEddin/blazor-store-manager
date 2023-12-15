@@ -1,4 +1,4 @@
-﻿namespace OnlineStoresManager.Web.App
+﻿namespace OnlineStoresManager.WebApp
 {
     public static class KeyboardKeys
     {

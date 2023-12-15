@@ -1,13 +1,13 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using OnlineStoresManager.WebApp.Components.Dialog;
 
-namespace OnlineStoresManager.Web.App.Components
+namespace OnlineStoresManager.WebApp.Components
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddOnlineStoresManagerComponents(this IServiceCollection services)
+        public static IServiceCollection AddOSMComponents(this IServiceCollection services)
         {
-            return services.AddScoped<OnlineStoresManagerDialogService>();
+            return services.AddScoped<OSMDialogService>();
         }
     }
 }

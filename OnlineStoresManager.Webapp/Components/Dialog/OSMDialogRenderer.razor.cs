@@ -1,29 +1,28 @@
 ﻿using Microsoft.AspNetCore.Components;
-using OnlineStoresManager.WebApp.Components.Abstractions;
 using System.Collections.Generic;
 using System;
 
-namespace OnlineStoresManager.WebApp
+namespace OnlineStoresManager.WebApp.Components.Dialog
 {
-    public partial class OnlineStoresManagerDialogRenderer : OnlineStoresManagerComponent
+    public partial class OSMDialogRenderer : OSMComponent
     {
         [Inject]
-        protected OnlineStoresManagerDialogService Service { get; set; } = null!;
+        protected OSMDialogService Service { get; set; } = null!;
 
-        private readonly Stack<OnlineStoresManagerDialogShowEventArgs> _dialogStack;
+        private readonly Stack<OSMDialogShowEventArgs> _dialogStack;
         protected IDictionary<string, object>? DialogParameters;
         protected Type? DialogType;
 
-        public OnlineStoresManagerDialogRenderer()
+        public OSMDialogRenderer()
         {
-            _dialogStack = new Stack<OnlineStoresManagerDialogShowEventArgs>();
+            _dialogStack = new Stack<OSMDialogShowEventArgs>();
             Visible = false;
         }
 
         protected override void OnInitialized()
         {
             Service.OnClose = EventCallback.Factory.Create(this, Close);
-            Service.OnShow = EventCallback.Factory.Create<OnlineStoresManagerDialogShowEventArgs>(this, Show);
+            Service.OnShow = EventCallback.Factory.Create<OSMDialogShowEventArgs>(this, Show);
         }
 
         private void Close()
@@ -31,7 +30,7 @@ namespace OnlineStoresManager.WebApp
             if (_dialogStack.Count >= 2)
             {
                 _dialogStack.Pop();
-                OnlineStoresManagerDialogShowEventArgs args = _dialogStack.Peek();
+                OSMDialogShowEventArgs args = _dialogStack.Peek();
                 ShowDialog(args);
             }
             else
@@ -43,14 +42,14 @@ namespace OnlineStoresManager.WebApp
             StateHasChanged();
         }
 
-        private void Show(OnlineStoresManagerDialogShowEventArgs args)
+        private void Show(OSMDialogShowEventArgs args)
         {
             _dialogStack.Push(args);
             ShowDialog(args);
             StateHasChanged();
         }
 
-        private void ShowDialog(OnlineStoresManagerDialogShowEventArgs args)
+        private void ShowDialog(OSMDialogShowEventArgs args)
         {
             DialogParameters = args.Parameters;
             DialogType = args.Type;
@@ -60,7 +59,7 @@ namespace OnlineStoresManager.WebApp
         protected override void Dispose(bool disposing)
         {
             Service.OnClose = EventCallback.Empty;
-            Service.OnShow = EventCallback<OnlineStoresManagerDialogShowEventArgs>.Empty;
+            Service.OnShow = EventCallback<OSMDialogShowEventArgs>.Empty;
 
             base.Dispose(disposing);
         }

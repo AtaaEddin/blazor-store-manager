@@ -1,6 +1,6 @@
 ﻿using System.Net.Http;
 
-namespace OnlineStoresManager.Web.App
+namespace OnlineStoresManager.WebApp
 {
     public class ServiceClientForbiddenException : ServiceClientException
     {

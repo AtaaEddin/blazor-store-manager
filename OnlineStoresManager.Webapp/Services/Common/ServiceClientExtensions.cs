@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Net.Http;
 
-namespace OnlineStoresManager.Web.App
+namespace OnlineStoresManager.WebApp
 {
     public static class ServiceClientExtensions
     {

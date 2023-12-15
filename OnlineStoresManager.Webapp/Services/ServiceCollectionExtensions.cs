@@ -7,8 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using OnlineStoresManager.WebApp.Services.Goods;
 
-namespace OnlineStoresManager.Web.App
+namespace OnlineStoresManager.WebApp
 {
     public static class ServiceCollectionExtensions
     {
@@ -18,7 +19,7 @@ namespace OnlineStoresManager.Web.App
         {
             services
                 .AddJsonOptions()
-                .AddOnlineStoresManagerAssets(environment)
+                .AddOnlineStoresManagerGoods(environment)
                 .AddOnlineStoresManagerIdentity(environment);
 
             services.AddScoped<LocalStorage>();
@@ -26,21 +27,16 @@ namespace OnlineStoresManager.Web.App
             return services;
         }
 
-        private static IServiceCollection AddOnlineStoresManagerAssets(this IServiceCollection services, IWebAssemblyHostEnvironment environment)
+        private static IServiceCollection AddOnlineStoresManagerGoods(this IServiceCollection services, IWebAssemblyHostEnvironment environment)
         {
             services
-                .AddScoped<AssetValidator>()
-                .AddScoped<AssetValidatorBuilder>()
-                .AddScoped<BatteryStorageAssetValidator>()
-                .AddScoped<ChargePointAssetValidator>()
-                .AddScoped<ChargePointValidator>()
-                .AddScoped<ConsumptionAssetValidator>()
-                .AddScoped<ElektrolysisPlantAssetValidator>()
-                .AddScoped<HydrogenStorageAssetValidator>()
-                .AddScoped<WindturbineAssetValidator>();
+                .AddScoped<BookValidation>()
+                .AddScoped<GoodValidation>()
+                .AddScoped<GoodValidationBuilder>()
+                .AddScoped<ShirtValidation>();
 
             services
-                .AddHttpClient<AssetService>(client => client.BaseAddress = new Uri($"{environment.BaseAddress}api/assets/"))
+                .AddHttpClient<GoodService>(client => client.BaseAddress = new Uri($"{environment.BaseAddress}api/goods/"))
                 .AddHttpMessageHandler<ServiceClientAuthenticator>();
 
             return services;

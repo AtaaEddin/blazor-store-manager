@@ -3,7 +3,7 @@
 using Microsoft.AspNetCore.Components.Authorization;
 using System.Threading.Tasks;
 
-namespace OnlineStoresManager.Web.App
+namespace OnlineStoresManager.WebApp
 {
     public class IdentityManager
     {

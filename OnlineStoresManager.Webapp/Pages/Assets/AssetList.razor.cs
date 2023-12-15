@@ -3,7 +3,7 @@ using OnlineStoresManager.Assets;
 using OnlineStoresManager.Identity;
 using OnlineStoresManager.Mastr.Assets;
 
-using OnlineStoresManager.Web.App.Pages.Mastr;
+using OnlineStoresManager.WebApp.Pages.Mastr;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -14,9 +14,9 @@ using System.Threading.Tasks;
 
 using Telerik.Blazor.Components;
 
-namespace OnlineStoresManager.Web.App.Pages.Assets
+namespace OnlineStoresManager.WebApp.Pages.Assets
 {
-    public partial class AssetList : OnlineStoresManagerAwaitableComponent
+    public partial class AssetList : OSMAwaitableComponent
     {
         [Parameter]
         public int? PageSize { get; set; }
@@ -122,7 +122,7 @@ namespace OnlineStoresManager.Web.App.Pages.Assets
 
         protected Task ShowCreateDialog()
         {
-            return DialogService.Show<AssetDialog>(
+            return OSMDialogService.Show<AssetDialog>(
                 new Dictionary<string, object>
                 {
                     [nameof(AssetDialog.Id)] = Guid.Empty,
@@ -146,7 +146,7 @@ namespace OnlineStoresManager.Web.App.Pages.Assets
 
         protected Task ShowEditDialog(Asset asset)
         {
-            return DialogService.Show<AssetDialog>(
+            return OSMDialogService.Show<AssetDialog>(
                 new Dictionary<string, object>
                 {
                     [nameof(AssetDialog.Id)] = asset.Id,
@@ -156,7 +156,7 @@ namespace OnlineStoresManager.Web.App.Pages.Assets
 
         protected Task ShowEditMastrAssetDialog(string id)
         {
-            return DialogService.Show<MastrAssetDialog>(
+            return OSMDialogService.Show<MastrAssetDialog>(
                 new Dictionary<string, object>
                 {
                     [nameof(MastrAssetDialog.Id)] = id,

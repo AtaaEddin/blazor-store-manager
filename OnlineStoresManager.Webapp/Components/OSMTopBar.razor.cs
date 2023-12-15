@@ -1,12 +1,11 @@
-﻿using OnlineStoresManager.Abstractions;
-
+﻿using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
+using OnlineStoresManager.Abstractions;
 using System.Threading.Tasks;
 
-namespace OnlineStoresManager.Web.App.Components
+namespace OnlineStoresManager.WebApp.Components
 {
-    public partial class OnlineStoresManagerGridTopBar : OnlineStoresManagerComponent
+    public partial class OSMTopBar : OSMComponent
     {
         [Parameter]
         public EventCallback OnCreate { get; set; }
@@ -26,6 +25,11 @@ namespace OnlineStoresManager.Web.App.Components
         protected Task Export(FileType fileType)
         {
             return OnExport.InvokeAsync(fileType);
+        }
+
+        protected Task Create()
+        {
+            return OnCreate.InvokeAsync();
         }
 
         protected void OnSearchTextBoxKeyPress(KeyboardEventArgs args)

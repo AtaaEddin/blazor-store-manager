@@ -3,12 +3,12 @@ using System;
 
 namespace OnlineStoresManager.WebApp.Components.Dialog
 {
-    public class OnlineStoresManagerDialogShowEventArgs : EventArgs
+    public class OSMDialogShowEventArgs : EventArgs
     {
         public IDictionary<string, object> Parameters { get; }
         public Type Type { get; }
 
-        public OnlineStoresManagerDialogShowEventArgs(Type type, IDictionary<string, object> parameters)
+        public OSMDialogShowEventArgs(Type type, IDictionary<string, object> parameters)
         {
             Parameters = parameters;
             Type = type;

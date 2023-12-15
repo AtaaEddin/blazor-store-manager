@@ -2,13 +2,13 @@
 
 using System.Threading.Tasks;
 
-namespace OnlineStoresManager.Web.App
+namespace OnlineStoresManager.WebApp
 {
     public class LocalStorage
     {
         private const string AccessTokenKey = "access_token";
         private const string CultureKey = "culture";
-        private const string ThemeKey = "theme";
+        private const string ThemeKey = "isDarkTheme";
 
         private readonly ILocalStorageService _storage;
 
@@ -35,13 +35,13 @@ namespace OnlineStoresManager.Web.App
             return culture;
         }
 
-        public async Task<string?> GetTheme()
+        public async Task<bool?> GetTheme()
         {
-            string? theme = await _storage.ContainKeyAsync(ThemeKey)
+            string? isDarkThemeStr = await _storage.ContainKeyAsync(ThemeKey)
                 ? await _storage.GetItemAsStringAsync(ThemeKey)
                 : null;
 
-            return theme;
+            return bool.TryParse(isDarkThemeStr, out bool isDarkTheme) ? isDarkTheme : null;
         }
 
         public async Task RemoveAccessToken()
@@ -59,9 +59,9 @@ namespace OnlineStoresManager.Web.App
             await _storage.SetItemAsStringAsync(CultureKey, culture);
         }
 
-        public async Task SetTheme(string theme)
+        public async Task SetTheme(bool isDarkThemeStr)
         {
-            await _storage.SetItemAsStringAsync(ThemeKey, theme);
+            await _storage.SetItemAsStringAsync(ThemeKey, isDarkThemeStr ? "1" : "0");
         }
     }
 }

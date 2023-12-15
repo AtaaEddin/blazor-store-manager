@@ -14,9 +14,9 @@ using System.Threading.Tasks;
 
 using Telerik.Blazor.Components;
 
-namespace OnlineStoresManager.Web.App.Pages.Assets
+namespace OnlineStoresManager.WebApp.Pages.Assets
 {
-    public partial class AssetDialog : OnlineStoresManagerAwaitableComponent
+    public partial class AssetDialog : OSMAwaitableComponent
     {
         [Parameter]
         public AssetDiscriminator? Discriminator { get; set; }
@@ -55,7 +55,7 @@ namespace OnlineStoresManager.Web.App.Pages.Assets
 
         protected Task Close()
         {
-            return DialogService.Close();
+            return OSMDialogService.Close();
         }
 
         private Task Load()
@@ -90,7 +90,7 @@ namespace OnlineStoresManager.Web.App.Pages.Assets
                         : await AssetService.Update(Asset!);
 
                     await OnSaved.InvokeAsync(saved);
-                    await DialogService.Close();
+                    await OSMDialogService.Close();
                 }
             });
         }

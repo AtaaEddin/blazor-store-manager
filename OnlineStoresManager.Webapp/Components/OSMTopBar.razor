@@ -1,0 +1,28 @@
+﻿@inherits OSMComponent
+
+<div class="row">
+    <div class="col-6">
+        @if (!string.IsNullOrEmpty(Title))
+        {
+            <h5 class="m-auto">@Title</h5>
+        }
+    </div>
+    <div class="col-6 text-end">
+        @if (OnExport.HasDelegate)
+        {
+            <MudSelect T="string" Label="@Localizer["Export"]" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter">
+                @foreach (FileType fileType in Enum.GetValues<FileType>())
+                {
+                    <MudSelectItem Value=@fileType.ToString().ToUpper() @onclick=@(e => Export(fileType)) />
+                }
+            </MudSelect>
+        }
+        <span @onkeypress=@OnSearchTextBoxKeyPress>
+            <MudTextField @bind-Value=@SearchText Label=@Localizer["Search"] Variant="Variant.Text"></MudTextField>
+        </span>
+        @if (OnCreate.HasDelegate)
+        {
+            <MudButton @onclick=@(e => Create()) Variant="Variant.Filled" Color="Color.Primary">@Localizer["Create"]</MudButton>
+        }
+    </div>
+</div>

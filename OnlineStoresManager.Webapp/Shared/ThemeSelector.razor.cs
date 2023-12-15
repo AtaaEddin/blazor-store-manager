@@ -1,44 +1,46 @@
 ﻿using Microsoft.AspNetCore.Components;
-
+using MudBlazor;
 using System.Threading.Tasks;
 
-namespace OnlineStoresManager.Web.App.Shared
+namespace OnlineStoresManager.WebApp.Shared
 {
-    public partial class ThemeSelector : OnlineStoresManagerAwaitableComponent
+    public partial class ThemeSelector : OSMAwaitableComponent
     {
-        private const string DarkTheme = "dark";
-        private const string LightTheme = "light";
-
         [Inject]
         public LocalStorage LocalStorage { get; set; } = null!;
 
-        protected bool IsDarkTheme => Theme == DarkTheme;
-        protected string Theme { get; set; } = string.Empty;
-
+        protected MudTheme Theme = new();
+        protected bool IsDarkMode;
+        protected MudThemeProvider? MudThemeProvider { get; set; }
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
-            Theme = await LocalStorage.GetTheme() ?? LightTheme;
+            IsDarkMode = await LocalStorage.GetTheme() ?? false;
         }
-
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            await base.OnAfterRenderAsync(firstRender);
-
             if (firstRender)
             {
+                IsDarkMode = await MudThemeProvider!.GetSystemPreference();
+                await MudThemeProvider.WatchSystemPreference(OnSystemPreferenceChanged);
                 await ImportJsFile("./Shared/ThemeSelector.razor.js");
                 await InvokeJsMethod("setTheme", Theme);
+                StateHasChanged();
             }
         }
-
-        protected Task ToggleTheme()
+        private async Task OnSystemPreferenceChanged(bool newValue)
         {
+            IsDarkMode = newValue;
+            StateHasChanged();
+        }
+
+        protected Task IsDarkModeChanged(bool value)
+        {
+            IsDarkMode = value;
             return Await(async () =>
             {
-                Theme = IsDarkTheme ? LightTheme : DarkTheme;
                 await InvokeJsMethod("setTheme", Theme);
-                await LocalStorage.SetTheme(Theme);
+                await LocalStorage.SetTheme(IsDarkMode);
             });
         }
     }

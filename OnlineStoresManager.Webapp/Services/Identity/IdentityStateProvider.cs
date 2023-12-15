@@ -7,7 +7,7 @@ using System.Security.Claims;
 
 using System.Threading.Tasks;
 
-namespace OnlineStoresManager.Web.App
+namespace OnlineStoresManager.WebApp
 {
     public class IdentityStateProvider : AuthenticationStateProvider
     {

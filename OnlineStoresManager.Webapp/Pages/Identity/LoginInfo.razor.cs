@@ -2,9 +2,9 @@
 
 using System.Threading.Tasks;
 
-namespace OnlineStoresManager.Web.App.Pages.Identity
+namespace OnlineStoresManager.WebApp.Pages.Identity
 {
-    public partial class LoginInfo : OnlineStoresManagerComponent
+    public partial class LoginInfo : OSMComponent
     {
         [Inject]
         public IdentityManager Manager { get; set; } = null!;

@@ -1,4 +1,4 @@
-﻿using OnlineStoresManager.Web.App;
+﻿using OnlineStoresManager.WebApp;
 using OnlineStoresManager.Abstractions;
 using OnlineStoresManager.Goods;
 using System;

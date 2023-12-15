@@ -1,8 +1,4 @@
-﻿@inherits OnlineStoresManagerAwaitableComponent
+﻿@inherits OSMAwaitableComponent
 
-<TelerikSwitch OffLabel=@Localizer["Light"]
-               OnLabel=@Localizer["Dark"]
-               TValue="bool"
-               Value=@IsDarkTheme
-               ValueChanged=@ToggleTheme
-               Width="70px" />
+<MudThemeProvider @ref="@MudThemeProvider" @bind-IsDarkMode="@IsDarkMode" Theme="Theme" />
+<MudSwitch @bind="@IsDarkMode"  Color="Color.Primary" Class="ma-4" T="bool" Label=@Localizer["Theme"] />

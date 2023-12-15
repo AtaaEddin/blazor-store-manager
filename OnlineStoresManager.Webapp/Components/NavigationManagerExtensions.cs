@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace OnlineStoresManager.Web.App
+namespace OnlineStoresManager.WebApp
 {
     public static class NavigationManagerExtensions
     {
@@ -10,14 +10,14 @@ namespace OnlineStoresManager.Web.App
             navigator.NavigateTo(string.IsNullOrEmpty(returnUrl) ? "/login" : $"/login?returnUrl={returnUrl}", true);
         }
 
-        public static void NavigateToMarketList(this NavigationManager navigator)
+        public static void NavigateToStoresHomePage(this NavigationManager navigator)
         {
-            navigator.NavigateTo("/markets");
+            navigator.NavigateTo("/");
         }
 
-        public static void NavigateToScenarioList(this NavigationManager navigator)
+        public static void NavigateToAdminHomePage(this NavigationManager navigator)
         {
-            navigator.NavigateTo("/scenarios");
+            navigator.NavigateTo("/Admin");
         }
     }
 }

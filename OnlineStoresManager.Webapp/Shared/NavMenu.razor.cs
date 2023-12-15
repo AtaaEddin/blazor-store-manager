@@ -1,8 +1,8 @@
 ﻿using OnlineStoresManager.WebApp;
 
-namespace OnlineStoresManager.Web.App.Shared
+namespace OnlineStoresManager.WebApp.Shared
 {
-    public partial class NavMenu : OnlineStoresManagerComponent
+    public partial class NavMenu : OSMComponent
     {
         private bool _collapseNavMenu = true;
         protected string? NavMenuCssClass => _collapseNavMenu ? "collapse" : null;

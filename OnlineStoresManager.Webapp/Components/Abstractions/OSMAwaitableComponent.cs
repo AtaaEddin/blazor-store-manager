@@ -1,9 +1,13 @@
 ﻿using System.Threading.Tasks;
 using System;
+using OnlineStoresManager.WebApp;
+using OnlineStoresManager.WebApp.Components.SimpleDialog;
+using MudBlazor;
+using OnlineStoresManager.WebApp.Localization;
 
 namespace OnlineStoresManager.WebApp
 {
-    public class OnlineStoresManagerAwaitableComponent : OnlineStoresManagerComponent
+    public class OSMAwaitableComponent : OSMComponent
     {
         protected bool IsLoading { get; set; }
 
@@ -21,7 +25,14 @@ namespace OnlineStoresManager.WebApp
             }
             catch (Exception ex)
             {
-                await DialogFactory.AlertAsync(ex.ToString());
+                var parameters = new DialogParameters<OSMSimpleDialog>
+                {
+                    { x => x.ContentText, ex.ToString() },
+                    { x => x.ButtonText, Resource.Ok },
+                    { x => x.Color, Color.Error }
+                };
+                var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+                DialogService.Show<OSMSimpleDialog>("Error", parameters, options);
             }
             finally
             {

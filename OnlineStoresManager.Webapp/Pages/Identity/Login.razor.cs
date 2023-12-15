@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using System.Threading.Tasks;
 
-namespace OnlineStoresManager.Web.App.Pages.Identity
+namespace OnlineStoresManager.WebApp.Pages.Identity
 {
-    public partial class Login : OnlineStoresManagerAwaitableComponent
+    public partial class Login : OSMAwaitableComponent
     {
         [Inject]
         public LoginRequestValidator RequestValidator { get; set; } = null!;

@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 
 namespace OnlineStoresManager.WebApp.Components.Dialog
 {
-    public class OnlineStoresManagerDialogService
+    public class OSMDialogService
     {
         internal EventCallback OnClose;
-        internal EventCallback<OnlineStoresManagerDialogShowEventArgs> OnShow;
+        internal EventCallback<OSMDialogShowEventArgs> OnShow;
 
         public Task Close()
         {
@@ -15,9 +15,9 @@ namespace OnlineStoresManager.WebApp.Components.Dialog
         }
 
         public Task Show<TComponent>(IDictionary<string, object> parameters)
-            where TComponent : OnlineStoresManagerComponent
+            where TComponent : OSMComponent
         {
-            OnlineStoresManagerDialogShowEventArgs args = new OnlineStoresManagerDialogShowEventArgs(typeof(TComponent), parameters);
+            OSMDialogShowEventArgs args = new OSMDialogShowEventArgs(typeof(TComponent), parameters);
 
             return OnShow.InvokeAsync(args);
         }
