@@ -5,7 +5,7 @@
         protected override void OnInitialized()
         {
             base.OnInitialized();
-            Navigator.NavigateToAdminHomePage();
+            Navigator.NavigateToStoresHomePage();
         }
     }
 }

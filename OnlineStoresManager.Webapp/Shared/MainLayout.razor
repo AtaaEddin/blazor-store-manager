@@ -9,21 +9,13 @@
                    Position="DialogPosition.Center"
                    CloseOnEscapeKey="true" />
 <MudSnackbarProvider />
-<OSMDialogRenderer />
+@* <OSMDialogRenderer /> *@
 
 <MudLayout>
-    <MudAppBar Elevation="0">
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
-        <MudSpacer />
-        <LoginInfo />
-        <CultureSelector />
-        <ThemeSelector />
-        @* <MudIconButton Icon="@Icons.Custom.Brands.MudBlazor" Color="Color.Inherit" Link="https://mudblazor.com/" Target="_blank" />
-        <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Link="https://github.com/MudBlazor/MudBlazor/" Target="_blank" /> *@
-    </MudAppBar>
+    <OSMMainTopBar />
     <MudDrawer @bind-Open="_drawerOpen" Elevation="1">
         <MudDrawerHeader>
-            <MudText Typo="Typo.h6">Online Stores Manager</MudText>
+            <MudText Typo="Typo.h6">Admin</MudText>
         </MudDrawerHeader>
         <NavMenu />
     </MudDrawer>
@@ -42,28 +34,3 @@
         _drawerOpen = !_drawerOpen;
     }
 }
-@* <TelerikRootComponent>
-    <OnlineStoresManagerDialogRenderer />
-    <div class="page">
-        <div class="sidebar">
-            <NavMenu />
-        </div>
-        <main>
-            <div class="top-row px-4">
-                <div class="d-inline-block w-100 text-center mx-5">
-                    <h3>H2 Agrar MultiUse Demonstrator v0.8</h3>
-                </div>
-                <LoginInfo />
-                <div class="d-inline-block">
-                    <CultureSelector />
-                </div>
-                <div class="d-inline-block ms-2">
-                    <ThemeSelector />
-                </div>
-            </div>
-            <article class="content px-4">
-                @Body
-            </article>
-        </main>
-    </div>
-</TelerikRootComponent> *@

@@ -41,7 +41,12 @@ namespace OnlineStoresManager.WebApp
                 ? await _storage.GetItemAsStringAsync(ThemeKey)
                 : null;
 
-            return bool.TryParse(isDarkThemeStr, out bool isDarkTheme) ? isDarkTheme : null;
+            if (isDarkThemeStr == null)
+            {
+                return null;
+            }
+
+            return int.TryParse(isDarkThemeStr, out int isDarkTheme) ? isDarkTheme == 1 : null;
         }
 
         public async Task RemoveAccessToken()

@@ -1,4 +1,4 @@
 ﻿@inherits OSMAwaitableComponent
 
-<MudThemeProvider @ref="@MudThemeProvider" @bind-IsDarkMode="@IsDarkMode" Theme="Theme" />
-<MudSwitch @bind="@IsDarkMode"  Color="Color.Primary" Class="ma-4" T="bool" Label=@Localizer["Theme"] />
+<MudThemeProvider @ref="MudThemeProvider" @bind-IsDarkMode="IsDarkMode" Theme="Theme" />
+<MudSwitch T="bool" CheckedChanged="ThemeChanged" Checked="@IsDarkMode" Color="Color.Primary" Class="ma-4" T="bool" Label="@(IsDarkMode ? Localizer["Dark"] : Localizer["Light"])" />

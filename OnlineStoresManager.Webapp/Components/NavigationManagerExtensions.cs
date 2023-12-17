@@ -17,7 +17,7 @@ namespace OnlineStoresManager.WebApp
 
         public static void NavigateToAdminHomePage(this NavigationManager navigator)
         {
-            navigator.NavigateTo("/Admin");
+            navigator.NavigateTo("/BasicGoodList");
         }
     }
 }

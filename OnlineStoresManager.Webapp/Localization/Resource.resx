@@ -123,6 +123,9 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="Dark" xml:space="preserve">
+    <value>Dark</value>
+  </data>
   <data name="Gategory" xml:space="preserve">
     <value>Gategory</value>
   </data>
@@ -131,6 +134,9 @@
   </data>
   <data name="Language" xml:space="preserve">
     <value>Language</value>
+  </data>
+  <data name="Light" xml:space="preserve">
+    <value>Light</value>
   </data>
   <data name="MaxLengthExceeded" xml:space="preserve">
     <value>Max Length Exceeded</value>

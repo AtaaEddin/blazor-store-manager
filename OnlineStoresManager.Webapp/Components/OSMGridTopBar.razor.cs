@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace OnlineStoresManager.WebApp.Components
 {
-    public partial class OSMTopBar : OSMComponent
+    public partial class OSMGridTopBar : OSMComponent
     {
         [Parameter]
         public EventCallback OnCreate { get; set; }
