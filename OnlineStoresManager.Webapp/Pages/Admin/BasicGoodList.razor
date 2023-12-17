@@ -1,4 +1,6 @@
-﻿@inherits OSMAwaitableComponent
+﻿@attribute [Authorize(Roles = Roles.Administrator)]
+@inherits OSMAwaitableComponent
+
 
 <PageTitle>@Localizer["Goods"]</PageTitle>
 
