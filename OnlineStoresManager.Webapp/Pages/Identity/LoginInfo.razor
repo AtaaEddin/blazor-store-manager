@@ -6,7 +6,7 @@
             <span class="me-2">
                 @context.User.FindFirst(Claims.UniqueName)?.Value
             </span>
-            <TelerikButton OnClick=@Logout ThemeColor="primary">@Localizer["Logout"]</TelerikButton>
+            <MudButton OnClick="@Logout" Variant="Variant.Filled" Color="Color.Primary">@Localizer["Logout"]</MudButton>
         </div>
     </Authorized>
 </AuthorizeView>

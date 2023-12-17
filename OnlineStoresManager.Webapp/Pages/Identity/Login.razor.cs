@@ -3,6 +3,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using System.Threading.Tasks;
+using MudBlazor;
 
 namespace OnlineStoresManager.WebApp.Pages.Identity
 {
@@ -19,12 +20,13 @@ namespace OnlineStoresManager.WebApp.Pages.Identity
         public string? ReturnUrl { get; set; }
 
         protected LoginRequest? Request { get; set; }
-        protected EditContext? RequestContext { get; set; }
+        protected MudForm? FormRef;
+        //protected EditContext? RequestContext { get; set; }
 
         protected override void OnInitialized()
         {
             Request = new LoginRequest();
-            RequestContext = new EditContext(Request);
+            //RequestContext = new EditContext(Request);
 
             base.OnInitialized();
         }
@@ -33,8 +35,8 @@ namespace OnlineStoresManager.WebApp.Pages.Identity
         {
             return Await(async () =>
             {
-                bool isValid = RequestContext!.Validate();
-                if (!isValid)
+                await FormRef!.Validate();
+                if (!FormRef.IsValid)
                 {
                     return;
                 }

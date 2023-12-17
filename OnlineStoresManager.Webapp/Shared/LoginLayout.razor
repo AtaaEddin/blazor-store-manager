@@ -1,5 +1,19 @@
-﻿<h3>LoginLayout</h3>
+﻿@inherits LayoutComponentBase
 
-@code {
+<MudLayout>
+    <MudAppBar Elevation="0">
+        <MudIcon Size="Size.Large" Icon="@Icons.Material.Filled.LocalGroceryStore">
+        </MudIcon>
+        <MudText Typo="Typo.h5">Online Stores Manager</MudText>
+        <MudSpacer />
+        <ThemeSelector />
+        <LoginInfo />
+        <CultureSelector />
+    </MudAppBar>
+    <MudMainContent>
+        <MudContainer MaxWidth="MaxWidth.Medium">
+            @Body
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
 
-}

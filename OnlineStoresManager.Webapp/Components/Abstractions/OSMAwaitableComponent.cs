@@ -31,8 +31,8 @@ namespace OnlineStoresManager.WebApp
                     { x => x.ButtonText, Resource.Ok },
                     { x => x.Color, Color.Error }
                 };
-                var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
-                DialogService.Show<OSMSimpleDialog>("Error", parameters, options);
+
+                DialogService.Show<OSMSimpleDialog>("Error", parameters);
             }
             finally
             {

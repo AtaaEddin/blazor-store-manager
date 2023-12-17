@@ -117,8 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Books" xml:space="preserve">
+    <value>Books</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
+  </data>
+  <data name="Gategory" xml:space="preserve">
+    <value>Gategory</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
   </data>
   <data name="MaxLengthExceeded" xml:space="preserve">
     <value>Max Length Exceeded</value>
@@ -126,7 +138,16 @@
   <data name="MustBeFilled" xml:space="preserve">
     <value>Must Be Filled</value>
   </data>
+  <data name="NotAuthorizedMessage" xml:space="preserve">
+    <value>You can reach this page, are you an admin?</value>
+  </data>
   <data name="Ok" xml:space="preserve">
     <value>Ok</value>
+  </data>
+  <data name="Shirts" xml:space="preserve">
+    <value>Shirts</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
   </data>
 </root>

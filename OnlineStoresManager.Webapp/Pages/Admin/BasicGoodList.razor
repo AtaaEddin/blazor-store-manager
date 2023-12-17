@@ -1,0 +1,12 @@
+﻿@inherits OSMAwaitableComponent
+
+<PageTitle>@Localizer["Goods"]</PageTitle>
+
+<MudDataGrid Items="@BasicGoods">
+    <Columns>
+        <PropertyColumn Property="x => x.Discriminator.ToString()" Title="@Localizer["Type"]" />
+        <PropertyColumn Property="x => x.Gategory.ToString()" Title="@Localizer["Gategory"]" />
+        <PropertyColumn Property="x => x.Name" />
+        <PropertyColumn Property="x => x.Price" />
+    </Columns>
+</MudDataGrid>

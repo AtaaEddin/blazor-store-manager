@@ -1,21 +1,6 @@
 ﻿@inherits OSMComponent
 
-@* <TelerikDropDownList Data=@SupportedCultures
-                     Class="ms-2"
-                     TextField="Value"
-                     TItem="KeyValuePair<string, string>"
-                     TValue="string"
-                     Value=@CurrentCultureName
-                     ValueChanged=@OnChanged
-                     ValueField="Key"
-                     Width="120px;" /> *@
-
-@* <MudMenu StartIcon="@Icons.Material.Filled.Translate" EndIcon="@Icons.Material.Filled.KeyboardArrowDown" Label="@CurrentCultureName" Color="Color.Primary" Variant="Variant.Filled">
-    <MudMenuItem>Swedish</MudMenuItem>
-    <MudMenuItem>Old Norse</MudMenuItem>
-</MudMenu> *@
-
-<MudSelect T="string" Label="@CurrentCultureName" @bind-Value=@CurrentCultureName Variant="Variant.Filled" AnchorOrigin="Origin.BottomCenter">
+<MudSelect FullWidth="true" T="string" Label="@Localizer["Language"]" @bind-Value=@CurrentCultureName Variant="Variant.Filled" AnchorOrigin="Origin.BottomCenter">
     @foreach (KeyValuePair<string, string> keyValuePair in SupportedCultures)
     {
         <MudSelectItem Value="@(keyValuePair.Value)" />

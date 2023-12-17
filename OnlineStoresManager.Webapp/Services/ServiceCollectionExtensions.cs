@@ -8,11 +8,22 @@ using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using OnlineStoresManager.WebApp.Services.Goods;
+using MudBlazor;
+using MudBlazor.Services;
 
 namespace OnlineStoresManager.WebApp
 {
     public static class ServiceCollectionExtensions
     {
+        public static IServiceCollection AddMudBlazor(
+            this IServiceCollection services)
+        {
+            services
+                .AddMudServices();
+
+            return services;
+        }
+
         public static IServiceCollection AddOnlineStoresManagerCore(
             this IServiceCollection services,
             IWebAssemblyHostEnvironment environment)

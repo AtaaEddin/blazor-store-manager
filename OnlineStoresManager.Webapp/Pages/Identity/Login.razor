@@ -2,26 +2,45 @@
 @inherits OSMAwaitableComponent
 @layout LoginLayout
 
-<TelerikForm EditContext=@RequestContext Orientation=@FormOrientation.Horizontal>
-    <FormValidation>
-        <FluentValidationValidator Validator=@RequestValidator />
-    </FormValidation>
-    <FormButtons></FormButtons>
-    <FormItems>
-        <FormItem>
-            <Template>
-                <label for="UserName" class="user-name">@Localizer["UserName"]</label>
-                <TelerikTextBox @bind-Value=@Request!.UserName />
-                <TelerikValidationMessage For=@(() => Request.UserName) />
-            </Template>
-        </FormItem>
-        <FormItem>
-            <Template>
-                <label for="Password" class="password">@Localizer["Password"]</label>
-                <TelerikTextBox @bind-Value=@Request!.Password Password=true />
-                <TelerikValidationMessage For=@(() => Request.Password) />
-            </Template>
-        </FormItem>
-    </FormItems>
-</TelerikForm>
-<TelerikButton OnClick=@SubmitLogin ThemeColor="primary">@Localizer["Login"]</TelerikButton>
+<MudGrid Class="mt-6" Spacing="5" Justify="Justify.Center">
+    <MudItem xs="12" sm="7">
+        <MudCard Outlined="true">
+            <MudForm Model="@Request" @ref="@FormRef" Validation="@(RequestValidator.ValidateValue)" ValidationDelay="0">
+		        <MudCardContent>
+                    <MudTextField @bind-Value="Request!.UserName"
+                                  For="@(() => Request!.UserName)"
+							          Immediate="true"
+                                  Label="UserName" />
+
+                    <MudTextField @bind-Value="Request.Password"
+                                  For="@(() => Request.Password)"
+						            Immediate="true"
+                                  InputType="InputType.Password"
+                                  Label="Password" />
+                </MudCardContent>
+	        </MudForm>
+            <MudCardActions>
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" OnClick="@SubmitLogin">@Localizer["Login"]</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+     <MudItem xs="12" sm="5">
+        <MudPaper Class="pa-4 mud-height-full">
+            <MudText Typo="Typo.subtitle2">User Credentials</MudText>
+            <MudList>
+                <MudListItem Text="UserName: user" Icon="@Icons.Material.Filled.VerifiedUser" />
+                <MudListItem Text="Password: 123" Icon="@Icons.Material.Filled.Password" />
+            </MudList>
+            <MudText Typo="Typo.subtitle2">Admin Credentials</MudText>
+            <MudList>
+                <MudListItem Text="UserName: *******" Icon="@Icons.Material.Filled.VerifiedUser" />
+                <MudListItem Text="Password: *******" Icon="@Icons.Material.Filled.Password" />
+            </MudList>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12">
+        <MudText Typo="Typo.body2" Align="Align.Center">
+            To get an Admin credentials contact <MudLink Typo="Typo.body2" Href="https://www.linkedin.com/in/ataaeddin-aldaghstani-39504917b/">the developer</MudLink>
+        </MudText>
+    </MudItem>
+</MudGrid>

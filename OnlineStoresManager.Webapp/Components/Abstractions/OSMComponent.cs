@@ -6,6 +6,8 @@ using System;
 using OnlineStoresManager.WebApp.Components.Dialog;
 using OnlineStoresManager.Abstractions;
 using MudBlazor;
+using OnlineStoresManager.WebApp.Components.SimpleDialog;
+using OnlineStoresManager.WebApp.Localization;
 
 namespace OnlineStoresManager.WebApp
 { 
@@ -42,7 +44,14 @@ namespace OnlineStoresManager.WebApp
             }
             catch (Exception ex)
             {
-                await DialogFactory.AlertAsync(ex.ToString());
+                var parameters = new DialogParameters<OSMSimpleDialog>
+                {
+                    { x => x.ContentText, ex.ToString() },
+                    { x => x.ButtonText, Resource.Ok },
+                    { x => x.Color, Color.Error }
+                };
+
+                DialogService.Show<OSMSimpleDialog>("Error", parameters);
             }
         }
 
@@ -54,7 +63,14 @@ namespace OnlineStoresManager.WebApp
             }
             catch (Exception ex)
             {
-                await DialogFactory.AlertAsync(ex.ToString());
+                var parameters = new DialogParameters<OSMSimpleDialog>
+                {
+                    { x => x.ContentText, ex.ToString() },
+                    { x => x.ButtonText, Resource.Ok },
+                    { x => x.Color, Color.Error }
+                };
+
+                DialogService.Show<OSMSimpleDialog>("Error", parameters);
             }
         }
 

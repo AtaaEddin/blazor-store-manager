@@ -13,7 +13,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddLocalization();
 builder.Services.AddAuthorizationCore();
-//builder.Services.AddTelerikBlazor();
+builder.Services.AddMudBlazor();
 builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddOSMComponents();
 builder.Services.AddOnlineStoresManagerCore(

@@ -79,7 +79,7 @@ try
     }
 
     app.UseHttpsRedirection();
-    //app.UseBlazorFrameworkFiles();
+    app.UseBlazorFrameworkFiles();
     app.UseStaticFiles();
     app.UseRouting();
     app.UseAuthentication();
