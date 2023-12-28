@@ -1,19 +1,20 @@
 ﻿using OnlineStoresManager.Abstractions;
 
-namespace OnlineStoresManager.Goods
+namespace OnlineStoresManager.Goods.Clothes
 {
-    public class BookFilter : Pagination, IBookFilter
+    public class ShirtFilter : Pagination, IShirtFilter
     {
         public const int DefaultSortBy = (int)BasicGoodFieldIdentifier.Name;
         public const SortOrder DefaultSortOrder = SortOrder.Ascending;
 
-        public string? SearchText { set; get; }
-        public BookType? BookType { get; set; }
+        public string? SearchText { get; set; }
+        public ShirtType? ShirtType { get; set; }
+        public string? Color { get; set; }
         public int SortBy { get; set; } = DefaultSortBy;
-        public SortOrder SortOrder {  get; set; } = DefaultSortOrder;
+        public SortOrder SortOrder { get; set; } = DefaultSortOrder;
         public decimal? MaxPrice { set; get; }
         public decimal? MinPrice { set; get; }
-        public GoodDiscriminator? Discriminator { set; get; }
         public GoodGategory? Gategory { set; get; }
+        public GoodType? Type { set; get; }
     }
 }

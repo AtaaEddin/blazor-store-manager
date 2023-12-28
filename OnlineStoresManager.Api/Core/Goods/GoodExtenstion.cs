@@ -1,5 +1,7 @@
 ﻿using OnlineStoresManager.Goods;
 using OnlineStoresManager.Abstractions;
+using OnlineStoresManager.Goods.Clothes;
+using OnlineStoresManager.Goods.Books;
 
 namespace OnlineStoresManager.API.Goods
 {
@@ -7,16 +9,16 @@ namespace OnlineStoresManager.API.Goods
     {
         public static IQueryable<BasicGood> FilterBy(this IQueryable<BasicGood> goods, IBasicGoodFilter filter)
         {
-            switch (filter.Discriminator)
+            switch (filter.Gategory)
             {
-                case GoodDiscriminator.Shirt:
+                case GoodGategory.Clothes:
                     return goods
                         .OfType<Shirt>()
                         .FilterByInternal(filter);
 
-                case GoodDiscriminator.Books:
+                case GoodGategory.Books:
                     return goods
-                        .OfType<Book>()
+                        .OfType<ShortStory>()
                         .FilterByInternal(filter);
 
                 default: return goods.FilterByInternal<BasicGood>(filter);
@@ -27,8 +29,8 @@ namespace OnlineStoresManager.API.Goods
             where TGood : BasicGood
         {
             return goods.Where(g =>
-                (filter.Discriminator == null || g.Discriminator == filter.Discriminator)
-                && (filter.Gategory == null || g.Gategory == filter.Gategory)
+                (filter.Gategory == null || g.Gategory == filter.Gategory)
+                && (filter.Type == null || g.Type == filter.Type)
                 && (filter.MaxPrice == null || g.Price <= filter.MaxPrice)
                 && (filter.MinPrice == null || g.Price >= filter.MinPrice)
                     && (filter.SearchText == null
@@ -44,20 +46,19 @@ namespace OnlineStoresManager.API.Goods
                 && (((ShirtFilter)filter).Color == null || s.Color == ((ShirtFilter)filter).Color));
         }
 
-        private static IQueryable<Book> FilterByInternal(this IQueryable<Book> goods, IBasicGoodFilter filter)
+        private static IQueryable<ShortStory> FilterByInternal(this IQueryable<ShortStory> goods, IBasicGoodFilter filter)
         {
-            return goods.FilterByInternal<Book>(filter).
+            return goods.FilterByInternal<ShortStory>(filter).
                 Where(b =>
-                (((BookFilter)filter).BookType == null || b.BookType == ((BookFilter)filter).BookType)
-                && (filter.SearchText == null || (b.Author != null && b.Author == filter.SearchText)));
+                (filter.SearchText == null || (b.Author != null && b.Author == filter.SearchText)));
         }
 
         public static IQueryable<BasicGood> SortBy(this IQueryable<BasicGood> goods, IBasicGoodFilter filter)
         {
             switch((BasicGoodFieldIdentifier)filter.SortBy)
             {
-                case BasicGoodFieldIdentifier.Discriminator:
-                    return goods.OrderBy(g => g.Discriminator, filter.SortOrder);
+                case BasicGoodFieldIdentifier.Gategory:
+                    return goods.OrderBy(g => g.Gategory, filter.SortOrder);
 
                 case BasicGoodFieldIdentifier.Price:
                     return goods.OrderBy(g => g.Price, filter.SortOrder);
@@ -66,24 +67,24 @@ namespace OnlineStoresManager.API.Goods
                     return goods.OrderBy(g => g.Name, filter.SortOrder);
 
                 case BasicGoodFieldIdentifier.Category:
-                    return goods.OrderBy(g => g.Gategory, filter.SortOrder);
+                    return goods.OrderBy(g => g.Type, filter.SortOrder);
 
                 default: break;
             }
 
-            switch (filter.Discriminator)
+            switch (filter.Gategory)
             {
-                case GoodDiscriminator.Shirt:
+                case GoodGategory.Clothes:
                     return goods
                         .OfType<Shirt>()
                         .SortByInternal(filter);
 
-                case GoodDiscriminator.Books:
+                case GoodGategory.Books:
                     return goods
-                        .OfType<Book>()
+                        .OfType<ShortStory>()
                         .SortByInternal(filter);
 
-                default: throw new ArgumentException($"Not supported discriminator {filter.Discriminator}");
+                default: throw new ArgumentException($"Not supported gategory {filter.Gategory}");
             }
         }
 
@@ -101,13 +102,11 @@ namespace OnlineStoresManager.API.Goods
             }
         }
 
-        private static IQueryable<Book> SortByInternal(this IQueryable<Book> books, IBasicGoodFilter filter)
+        private static IQueryable<ShortStory> SortByInternal(this IQueryable<ShortStory> books, IBasicGoodFilter filter)
         {
-            switch((BookFieldIdentifier)filter.SortBy)
+            switch((ShortStoryFieldIdentifier)filter.SortBy)
             {
-                case BookFieldIdentifier.BookType:
-                    return books.OrderBy(b => b.BookType, filter.SortOrder);
-                case BookFieldIdentifier.Author:
+                case ShortStoryFieldIdentifier.Author:
                     return books.OrderBy(b => b.Author, filter.SortOrder);
 
                 default:

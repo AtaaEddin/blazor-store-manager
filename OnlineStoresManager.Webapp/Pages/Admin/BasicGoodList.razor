@@ -4,11 +4,14 @@
 
 <PageTitle>@Localizer["Goods"]</PageTitle>
 
-<MudDataGrid Items="@BasicGoods">
+<OSMGridTopBar OnCreate=ShowCreateDialog />
+<MudDataGrid @ref=MudDataGrid T="BasicGood" ServerData="LoadGridData" RowsPerPage="5">
     <Columns>
-        <PropertyColumn Property="x => x.Discriminator.ToString()" Title="@Localizer["Type"]" />
-        <PropertyColumn Property="x => x.Gategory.ToString()" Title="@Localizer["Gategory"]" />
+        <PropertyColumn Property="x => x.Type.ToString()" Title="@Localizer["Type"]" />
         <PropertyColumn Property="x => x.Name" />
         <PropertyColumn Property="x => x.Price" />
     </Columns>
+    <PagerContent>
+        <MudDataGridPager T="BasicGood" PageSizeOptions=@(new int[] {5, 10, 20}) />
+    </PagerContent>
 </MudDataGrid>

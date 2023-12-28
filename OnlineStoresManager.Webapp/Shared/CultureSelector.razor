@@ -1,6 +1,6 @@
 ﻿@inherits OSMComponent
 
-<MudSelect FullWidth="true" T="string" Label="@Localizer["Language"]" @bind-Value=@CurrentCultureName Variant="Variant.Filled" AnchorOrigin="Origin.BottomCenter">
+<MudSelect T="string" Label="@Localizer["Language"]" @bind-Value=@CurrentCultureName Variant="Variant.Filled">
     @foreach (KeyValuePair<string, string> keyValuePair in SupportedCultures)
     {
         <MudSelectItem Value="@(keyValuePair.Value)" />

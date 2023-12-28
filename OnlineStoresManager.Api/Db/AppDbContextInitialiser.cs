@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using OnlineStoresManager.Goods;
+using OnlineStoresManager.Goods.Books;
+using OnlineStoresManager.Goods.Clothes;
 
 namespace OnlineStoresManager.API.Db
 {
@@ -67,7 +68,7 @@ namespace OnlineStoresManager.API.Db
                     Name = "shirt test"
                 });
 
-                _context.Goods.Add(new Book
+                _context.Goods.Add(new ShortStory
                 {
                     Id = Guid.NewGuid(),
                     Name = "book test"

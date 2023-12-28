@@ -7,8 +7,8 @@ namespace OnlineStoresManager.Goods
     {
         decimal? MaxPrice { get; }
         decimal? MinPrice { get; }
-        GoodDiscriminator? Discriminator { get; }
         GoodGategory? Gategory { get; }
+        GoodType? Type { get; }
         string? SearchText { get; }
         int SortBy { get; }
         SortOrder SortOrder { get; }

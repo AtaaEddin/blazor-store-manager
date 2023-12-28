@@ -1,5 +1,6 @@
-﻿using FluentValidation;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
+
+using OnlineStoresManager.Abstractions;
 using OnlineStoresManager.Goods;
 using System;
 
@@ -14,18 +15,18 @@ namespace OnlineStoresManager.WebApp.Services.Goods
             _serviceProvider = serviceProvider;
         }
 
-        public IValidator Create(BasicGood basicGood)
+        public IMudValidation Create(BasicGood basicGood)
         {
-            switch(basicGood.Discriminator)
+            switch(basicGood.Type)
             {
-                case GoodDiscriminator.Shirt:
+                case GoodType.Shirt:
                     return _serviceProvider.GetRequiredService<ShirtValidation>();
 
-                case GoodDiscriminator.Books:
-                    return _serviceProvider.GetRequiredService<BookValidation>();
+                case GoodType.ShortStory:
+                    return _serviceProvider.GetRequiredService<ShortStoryValidation>();
 
                 default:
-                    throw new ArgumentException($"Not supported asset type '{basicGood.Discriminator}'");
+                    throw new ArgumentException($"Not supported asset type '{basicGood.Gategory}'");
             }
         }
     }

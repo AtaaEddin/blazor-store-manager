@@ -1,4 +1,4 @@
-﻿namespace OnlineStoresManager.Goods
+﻿namespace OnlineStoresManager.Goods.Clothes
 {
     public enum ShirtFieldIdentifier
     {

@@ -43,7 +43,7 @@ namespace OnlineStoresManager.API.Controllers
         //}
 
         [HttpPost("api/goods/find")]
-        public async Task<IActionResult> Find([FromBody] IBasicGoodFilter filter)
+        public async Task<IActionResult> Find([FromBody] BasicGoodFilter filter)
         {
             IPage<BasicGood> goods = await _manager.Find(filter);
 

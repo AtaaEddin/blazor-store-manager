@@ -13,7 +13,7 @@ namespace OnlineStoresManager.Goods
         Price = 3,
         Description = 4,
         Category = 5,
-        Discriminator = 6,
+        Gategory = 6,
         ImageUrl = 7
     }
 }

@@ -1,30 +1,31 @@
 ﻿using FluentValidation;
+using OnlineStoresManager.Abstractions;
 using OnlineStoresManager.Goods;
 using OnlineStoresManager.WebApp.Localization;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace OnlineStoresManager.WebApp.Services.Goods
 {
     public class GoodValidation : GoodValidation<BasicGood> { }
-    public class GoodValidation<TGood> : AbstractValidator<TGood> 
-        where TGood : BasicGood 
+    public class GoodValidation<TGood> : AbstractValidator<TGood>, IMudValidation
+        where TGood : BasicGood
     {
-        public GoodValidation() 
+        public GoodValidation()
         {
             RuleFor(g => g.Name)
                 .NotEmpty()
                 .WithMessage(Resource.MustBeFilled);
 
+            RuleFor(g => g.Price)
+                .NotNull()
+                .WithMessage(Resource.MustBeFilled);
+
             RuleFor(g => g.ImageUrls)
                 .NotEmpty()
                 .WithMessage(Resource.MustBeFilled);
-
-            RuleFor(g => g.Description)
-                .MaximumLength(100)
-                .WithMessage(Resource.MaxLengthExceeded);
         }
 
         public Func<object, string, Task<IEnumerable<string>>> ValidateValue => async (model, propertyName) =>

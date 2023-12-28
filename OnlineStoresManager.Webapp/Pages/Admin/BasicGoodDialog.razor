@@ -1,0 +1,119 @@
+﻿@inherits OSMAwaitableComponent
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            <MudIcon Icon="@Icons.Material.Filled.Edit" Class="mr-3" /> 
+            <MudText>@(IsNew ? @Localizer["New"] : Localizer["Edit"])</MudText>
+            @switch(Good!.Gategory)
+            {
+                case GoodGategory.Books:
+                    <MudText>@Localizer["Book"]</MudText>
+                    break;
+
+                case GoodGategory.Digital:
+                    <MudText>@Localizer["Laptop"]</MudText>
+                    break;
+
+                case GoodGategory.Clothes:
+                    <MudText>@Localizer["Shirt"]</MudText>
+                    break;
+
+                default: throw new ArgumentException($"Unsupported good gategory. {Good.Gategory.ToString()}");
+            }
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudContainer Class="mt-5" MaxWidth="MaxWidth.ExtraExtraLarge">
+            <MudForm @ref=MudFormRef Model=@Good Validation=FormValidator ValidationDelay="0">
+                <MudGrid Spacing="5" Justify="Justify.Center">
+                    <MudItem xs="12" sm="6">
+                        <MudText Typo=Typo.h6>
+                            @Localizer["GeneralInfo"]
+                        </MudText>
+                        <MudDivider DividerType="DividerType.Middle" />
+                        <MudSelect T=string
+                                   Disabled=true
+                                   Value=@Good!.Gategory.ToString()
+                                   Label=@Localizer["Gategory"]
+                                   Margin="Margin.Dense"
+                                   Variant="Variant.Outlined"
+                                   AnchorOrigin="Origin.TopLeft">
+
+                            @foreach (var gategory in Enum.GetNames<GoodGategory>())
+                            {
+                                <MudSelectItem Value=gategory />
+                            }
+                        </MudSelect>
+                        <MudSelect T=string
+                            Value=@Good.Type.ToString()
+                            ValueChanged=TypeChanged
+                            Disabled=!IsNew
+                            Label=@Localizer["Type"]
+                            Margin="Margin.Dense" 
+                            Variant="Variant.Outlined"
+                            AnchorOrigin="Origin.CenterCenter">
+
+                            @foreach (var type in Enum.GetNames<GoodType>())
+                            {
+                                <MudSelectItem Value=type />
+                            }
+                        </MudSelect>
+                        <MudTextField @bind-Value=Good!.Name
+                                      For=@(() => Good!.Name)
+                                      Immediate="true"
+                                      Label="@Localizer["Name"]" />
+                        <MudNumericField @bind-Value=Good!.Price
+                                         For=@(() => Good!.Price)
+                                         Immediate="true"
+                                         Label="@Localizer["Price"]" />
+
+                        <MudTextField T="string" @bind-Value=Good!.Description Label=@Localizer["Description"] Variant="Variant.Filled" Lines="3" />
+                    </MudItem>
+                    <MudItem xs="12" sm="6">
+                        <MudText Typo=Typo.h6>
+                            @Localizer["TypeSpecificInfo"]
+                        </MudText>
+                        <MudDivider DividerType="DividerType.Middle" />
+                       @switch(Good.Type)
+                        {
+                            case GoodType.ShortStory:
+                                <MudTextField @bind-Value=@(((ShortStory)Good!).Author)
+                                              For=@(() => Good!.Name)
+                                              Immediate="true"
+                                              Label="@Localizer["Author"]" />
+                                break;
+
+                            case GoodType.Shirt:
+                                <MudTextField @bind-Value=@(((Shirt)Good!).Color)
+                                              For=@(() => Good!.Name)
+                                              Immediate="true"
+                                              Label="@Localizer["Color"]" />
+                                <MudSelect T=ShirtType?
+                                           @bind-Value=(((Shirt)Good!).ShirtType)
+                                           Label=@Localizer["ShirtType"]
+                                           Margin="Margin.Dense"
+                                           Variant="Variant.Outlined"
+                                           AnchorOrigin="Origin.CenterCenter">
+
+                                    @foreach (var shirtType in Enum.GetValues<ShirtType>())
+                                    {
+                                        <MudSelectItem T=ShirtType? Value=shirtType >
+                                            @shirtType.ToString()
+                                        </MudSelectItem>
+                                    }
+                                </MudSelect>
+                                    break;
+
+                            default: throw new ArgumentException($"Unsupported good gategory. {Good.Type.ToString()}");
+                        }
+                    </MudItem>
+                </MudGrid>
+            </MudForm>
+        </MudContainer>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick=Close>@Localizer["Cancel"]</MudButton>
+        <MudButton Color=@Color.Success Variant="Variant.Filled" OnClick=Save>@Localizer["Save"]</MudButton>
+    </DialogActions>
+</MudDialog>

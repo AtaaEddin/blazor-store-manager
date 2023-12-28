@@ -1,8 +1,8 @@
 ﻿namespace OnlineStoresManager.Goods
 {
-    public enum BookType
+    public enum GoodType
     {
-        None = 0,
         ShortStory = 1,
+        Shirt = 2,
     }
 }

@@ -376,6 +376,7 @@ MigrationBackup/
 **/Db/Migrations/
 
 onlineStoresManager.db
+onlineStoresManager.db-*
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 

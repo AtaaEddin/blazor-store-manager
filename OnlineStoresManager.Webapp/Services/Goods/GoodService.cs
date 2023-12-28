@@ -39,7 +39,7 @@ namespace OnlineStoresManager.WebApp.Services.Goods
             return good;
         }
 
-        //public async Task<FileBytes?> Export(FileExportRequest<BasicGood, IBasicGoodFilter> request)
+        //public async Task<FileBytes?> Export(FileExportRequest<BasicGood, BasicGoodFilter> request)
         //{
         //    HttpResponseMessage response = await PostAsJsonAsync("export", request);
         //    FileBytes? file = await ReadFromJsonAsync<FileBytes>(response);
@@ -47,7 +47,7 @@ namespace OnlineStoresManager.WebApp.Services.Goods
         //    return file;
         //}
 
-        public async Task<IPage<BasicGood>?> Find(IBasicGoodFilter filter)
+        public async Task<IPage<BasicGood>?> Find(BasicGoodFilter filter)
         {
             HttpResponseMessage response = await PostAsJsonAsync("find", filter);
             PagedList<BasicGood>? goods = await ReadFromJsonAsync<PagedList<BasicGood>>(response);

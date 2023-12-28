@@ -1,5 +1,7 @@
 ﻿using FluentValidation;
-using OnlineStoresManager.Goods;
+using OnlineStoresManager.Abstractions;
+using OnlineStoresManager.Goods.Clothes;
+using OnlineStoresManager.WebApp.Localization;
 
 namespace OnlineStoresManager.WebApp.Services.Goods
 {
@@ -7,13 +9,13 @@ namespace OnlineStoresManager.WebApp.Services.Goods
     {
         public ShirtValidation()
         {
-            RuleFor(s => s.ShirtType)
-                .NotNull();
-            //.WithMessage(Resource...)
-
             RuleFor(s => s.Color)
-                .NotEmpty();
-                //.WithMessage(Resource.MustBeFilled)
+                .NotEmpty()
+                .WithMessage(Resource.MustBeFilled);
+
+            RuleFor(s => s.ShirtType)
+                .NotNull()
+                .WithMessage(Resource.MustBeFilled);
         }
     }
 }

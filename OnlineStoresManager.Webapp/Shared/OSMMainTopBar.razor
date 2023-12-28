@@ -1,4 +1,5 @@
 ﻿<MudAppBar Elevation="0">
+    <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@(async (e) => await DrawerToggle())" />
     <MudIcon Size="Size.Large" Icon="@Icons.Material.Filled.LocalGroceryStore">
     </MudIcon>
     <MudText Typo="Typo.h5">Online Stores Manager</MudText>
@@ -9,3 +10,17 @@
     </MudText>
     <ThemeSelector />
 </MudAppBar>
+
+@code {
+
+    [Parameter]
+    public bool Open { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> OpenChanged { get; set; }
+
+    protected async Task DrawerToggle()
+    {
+        await OpenChanged.InvokeAsync(!Open);
+    }
+}

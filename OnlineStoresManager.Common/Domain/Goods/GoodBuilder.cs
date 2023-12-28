@@ -1,16 +1,22 @@
 ﻿using System;
+using OnlineStoresManager.Goods.Books;
+using OnlineStoresManager.Goods.Clothes;
 
 namespace OnlineStoresManager.Goods
 {
     public static class GoodBuilder
     {
-        public static BasicGood Create(GoodDiscriminator Discriminator)
+        public static BasicGood Create(GoodType type)
         {
-            switch (Discriminator)
+            switch (type)
             {
-                case GoodDiscriminator.Books: return new Book();
-                case GoodDiscriminator.Shirt: return new Shirt();
-                default: throw new ArgumentException($"Not supported good type {nameof(Discriminator)}");
+                case GoodType.Shirt:
+                    return new Shirt();
+
+                case GoodType.ShortStory:
+                    return new ShortStory();
+
+                default: throw new ArgumentException($"combination of Type: {type} is not supported");
             }
         }
 
@@ -19,8 +25,10 @@ namespace OnlineStoresManager.Goods
         {
             switch(typeof(TGood))
             {
-                case Type type when type == typeof(Book): return (TGood)Create(GoodDiscriminator.Books);
-                case Type type when type == typeof(Shirt): return (TGood)Create(GoodDiscriminator.Shirt);
+                case Type type when type == typeof(ShortStory): return (TGood)Create(GoodType.ShortStory);
+
+                case Type type when type == typeof(Shirt): return (TGood)Create(GoodType.Shirt);
+
                 default: throw new ArgumentException($"Not supported good type {typeof(TGood)}");
             }
         }

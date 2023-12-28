@@ -41,7 +41,7 @@ namespace OnlineStoresManager.WebApp
         private static IServiceCollection AddOnlineStoresManagerGoods(this IServiceCollection services, IWebAssemblyHostEnvironment environment)
         {
             services
-                .AddScoped<BookValidation>()
+                .AddScoped<ShortStoryValidation>()
                 .AddScoped<GoodValidation>()
                 .AddScoped<GoodValidationBuilder>()
                 .AddScoped<ShirtValidation>();

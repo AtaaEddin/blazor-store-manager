@@ -1,6 +1,6 @@
 ﻿using OnlineStoresManager.Abstractions;
 
-namespace OnlineStoresManager.Goods
+namespace OnlineStoresManager.Goods.Clothes
 {
     public interface IShirtFilter : IBasicGoodFilter, IPagination
     {

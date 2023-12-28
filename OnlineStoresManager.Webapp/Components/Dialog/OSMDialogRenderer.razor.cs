@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
-using System.Collections.Generic;
+using MudBlazor;
 using System;
+using System.Collections.Generic;
 
 namespace OnlineStoresManager.WebApp.Components.Dialog
 {
@@ -53,7 +54,18 @@ namespace OnlineStoresManager.WebApp.Components.Dialog
         {
             DialogParameters = args.Parameters;
             DialogType = args.Type;
+            var parameters = new DialogParameters();
+            foreach( var parameter in DialogParameters )
+            {
+                parameters.Add(parameter.Key, parameter.Value);
+            }
+            var options = new DialogOptions
+            {
+                MaxWidth = MaxWidth.ExtraLarge,
+                NoHeader = false,
+            };
             Visible = true;
+            DialogService.Show(DialogType, null, parameters, options);
         }
 
         protected override void Dispose(bool disposing)
