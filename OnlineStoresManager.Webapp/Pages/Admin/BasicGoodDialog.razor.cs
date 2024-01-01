@@ -23,7 +23,7 @@ namespace OnlineStoresManager.WebApp.Pages.Admin
         public GoodType? Type { get; set; }
 
         [Parameter]
-        public Guid? Id { get; set; }
+        public BasicGood? BasicGood { get; set; }
 
         [Parameter]
         public EventCallback<BasicGood> OnSaved { get; set; }
@@ -34,15 +34,16 @@ namespace OnlineStoresManager.WebApp.Pages.Admin
         [Inject]
         public GoodService GoodService { get; set; } = null!;
 
-        protected BasicGood? Good { get; set; }
         protected IMudValidation? GoodValidation { get; set; }
         protected DialogOptions? DialogOptions { get; set; }
-        protected bool IsNew => Id == null || Id == Guid.Empty;
+        protected bool IsNew => BasicGood == null;
         protected MudForm? MudFormRef { get; set; }
         protected MudSelect<string>? ShirtTypeSelectRef { get; set; }
-        protected override async Task OnParametersSetAsync()
+
+        protected override void OnParametersSet()
         {
-            await Load();
+            base.OnParametersSet();
+            Load();
         }
 
         protected void Close()
@@ -51,15 +52,10 @@ namespace OnlineStoresManager.WebApp.Pages.Admin
             MudDialog?.Cancel();
         }
 
-        private async Task Load()
+        private void Load()
         {
-            if(!IsNew)
-            {
-                Good = await GoodService.Get(Id!.Value);
-            }
-
-            Good ??= GoodBuilder.Create(Type ?? GoodType.Shirt);
-            GoodValidation = GoodValidationBuilder.Create(Good);
+            BasicGood ??= GoodBuilder.Create(Type ?? GoodType.Shirt);
+            GoodValidation = GoodValidationBuilder.Create(BasicGood);
         }
 
         protected async Task Save()
@@ -69,25 +65,23 @@ namespace OnlineStoresManager.WebApp.Pages.Admin
             if(MudFormRef.IsValid)
             {
                 BasicGood? saved = IsNew
-                    ? await GoodService.Create(Good!)
-                    : await GoodService.Update(Good!);
+                    ? await GoodService.Create(BasicGood!)
+                    : await GoodService.Update(BasicGood!);
 
                 await OnSaved.InvokeAsync(saved);
                 MudDialog!.Close();
             }
         }
-        protected Func<object, string, Task<IEnumerable<string>>> FormValidator
-        { get => GoodValidation!.ValidateValue; }
 
         protected void TypeChanged(string goodTypeStr)
         {
-            Good.Type = Enum.Parse<GoodType>(goodTypeStr);
+            BasicGood.Type = Enum.Parse<GoodType>(goodTypeStr);
             OSMDialogService.Close();
             MudDialog!.Close();
             OSMDialogService.Show<BasicGoodDialog>(
                 new Dictionary<string, object>
                 {
-                    [nameof(BasicGood.Type)] = Good.Type,
+                    [nameof(Goods.BasicGood.Type)] = BasicGood.Type,
                     [nameof(BasicGoodDialog.OnSaved)] = EventCallback.Factory.Create<BasicGood>(this, OnSaved)
                 });
         }

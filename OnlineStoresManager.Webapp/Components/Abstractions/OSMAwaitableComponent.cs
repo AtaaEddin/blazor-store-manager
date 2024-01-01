@@ -1,8 +1,9 @@
 ﻿using System.Threading.Tasks;
 using System;
-using OnlineStoresManager.WebApp;
-using OnlineStoresManager.WebApp.Components.SimpleDialog;
+
 using MudBlazor;
+
+using OnlineStoresManager.WebApp.Components.SimpleDialog;
 using OnlineStoresManager.WebApp.Localization;
 
 namespace OnlineStoresManager.WebApp

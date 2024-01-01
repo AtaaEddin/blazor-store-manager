@@ -10,13 +10,11 @@ namespace OnlineStoresManager.WebApp.Components.Dialog
         [Inject]
         protected OSMDialogService Service { get; set; } = null!;
 
-        private readonly Stack<OSMDialogShowEventArgs> _dialogStack;
         protected IDictionary<string, object>? DialogParameters;
         protected Type? DialogType;
 
         public OSMDialogRenderer()
         {
-            _dialogStack = new Stack<OSMDialogShowEventArgs>();
             Visible = false;
         }
 
@@ -28,24 +26,13 @@ namespace OnlineStoresManager.WebApp.Components.Dialog
 
         private void Close()
         {
-            if (_dialogStack.Count >= 2)
-            {
-                _dialogStack.Pop();
-                OSMDialogShowEventArgs args = _dialogStack.Peek();
-                ShowDialog(args);
-            }
-            else
-            {
-                _dialogStack.Clear();
-                Visible = false;
-            }
-
+           
+            Visible = false;
             StateHasChanged();
         }
 
         private void Show(OSMDialogShowEventArgs args)
         {
-            _dialogStack.Push(args);
             ShowDialog(args);
             StateHasChanged();
         }

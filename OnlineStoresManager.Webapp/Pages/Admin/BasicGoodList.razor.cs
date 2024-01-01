@@ -19,14 +19,24 @@ namespace OnlineStoresManager.WebApp.Pages.Admin
         private BasicGoodFilter _basicGoodFilter = new BasicGoodFilter();
         protected MudDataGrid<BasicGood>? MudDataGrid { get; set; }
 
-        protected Task ShowCreateDialog()
+        protected Task ShowBasicGoodDialog(Guid? basicGoodId = null, GoodType? goodType = null)
         {
-            return OSMDialogService.Show<BasicGoodDialog>(
-                new Dictionary<string, object>
+            return Await(async () =>
+            {
+                BasicGood? good = null;
+                if (basicGoodId != null)
                 {
-                    [nameof(BasicGood.Id)] = Guid.Empty,
-                    [nameof(BasicGoodDialog.OnSaved)] = EventCallback.Factory.Create<BasicGood>(this, RefreshGrid)
-                });
+                    good = await GoodService.Get(basicGoodId!.Value);
+
+                }
+                await OSMDialogService.Show<BasicGoodDialog>(
+                    new Dictionary<string, object>
+                    {
+                        [nameof(BasicGood)] = good,
+                        [nameof(BasicGood.Type)] = goodType ?? GoodType.Shirt,
+                        [nameof(BasicGoodDialog.OnSaved)] = EventCallback.Factory.Create<BasicGood>(this, RefreshGrid)
+                    });
+            });
         }
 
         private async Task<GridData<BasicGood>> LoadGridData(GridState<BasicGood> state)
@@ -49,9 +59,7 @@ namespace OnlineStoresManager.WebApp.Pages.Admin
             return data;
         }
 
-        protected async Task RefreshGrid()
-        {
-            await MudDataGrid!.ReloadServerData();
-        }
+        protected Task RefreshGrid() => Await(async () =>  await MudDataGrid!.ReloadServerData());
+        
     }
 }

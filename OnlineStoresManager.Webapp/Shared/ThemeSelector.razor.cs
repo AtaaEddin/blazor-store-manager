@@ -13,6 +13,12 @@ namespace OnlineStoresManager.WebApp.Shared
         protected bool IsDarkMode { set; get; }
         protected MudThemeProvider? MudThemeProvider { get; set; }
 
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+            Theme.ZIndex.Dialog = 1200;
+        }
+
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             await base.OnAfterRenderAsync(firstRender);
@@ -27,8 +33,6 @@ namespace OnlineStoresManager.WebApp.Shared
                     await LocalStorage.SetTheme(IsDarkMode);
                 }
 
-                //await ImportJsFile("./Shared/ThemeSelector.razor.js");
-                //await InvokeJsMethod("setTheme", Theme);
                 StateHasChanged();
             }
         }
@@ -43,7 +47,6 @@ namespace OnlineStoresManager.WebApp.Shared
             IsDarkMode = value;
             return Await(async () =>
             {
-                //await InvokeJsMethod("setTheme", Theme);
                 await LocalStorage.SetTheme(IsDarkMode);
             });
         }

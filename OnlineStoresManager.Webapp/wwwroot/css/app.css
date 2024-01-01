@@ -30,19 +30,6 @@
     .loading-progress-text:after {
         content: var(--blazor-load-percentage-text, "Loading");
     }
-
-.mud-drawer-overlay {
-    z-index: 1 !important;
-}
-
-.mud-NavMenu-z-index {
-    z-index: 2 !important;
-}
-
-.mud-body-z-index {
-    z-index: 5 !important;
-}
-
-.mud-dialog-container {
-    z-index: 4 !important;
+.mud-divider {
+    border: revert !important;
 }
