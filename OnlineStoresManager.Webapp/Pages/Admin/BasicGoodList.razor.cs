@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using MudBlazor;
+using OnlineStoresManager.Abstractions;
 using OnlineStoresManager.Goods;
 using OnlineStoresManager.Goods.Books;
 using OnlineStoresManager.WebApp.Components.SimpleDialog;
@@ -8,6 +9,7 @@ using OnlineStoresManager.WebApp.Localization;
 using OnlineStoresManager.WebApp.Services.Goods;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace OnlineStoresManager.WebApp.Pages.Admin
@@ -48,9 +50,25 @@ namespace OnlineStoresManager.WebApp.Pages.Admin
 
         protected async Task<GridData<BasicGood>> LoadGridData(GridState<BasicGood> state)
         {
+            SelectedGoods = new HashSet<BasicGood>();
+
             _basicGoodFilter.PageIndex = state.Page;
             _basicGoodFilter.PageSize = state.PageSize;
             _basicGoodFilter.SearchText = SearchString ?? string.Empty;
+
+            if(Enum.TryParse(
+                state.SortDefinitions?.FirstOrDefault()?.SortBy ?? string.Empty, out BasicGoodFieldIdentifier sortBy))
+            {
+                _basicGoodFilter.SortBy = (int)sortBy;
+            }
+
+            bool? descending = state.SortDefinitions?.FirstOrDefault()?.Descending;
+            if(descending != null)
+            {
+                _basicGoodFilter.SortOrder = descending.Value 
+                    ? SortOrder.Descending 
+                    : SortOrder.Ascending;
+            }
 
             var BasicGoods = await GoodService.Find(_basicGoodFilter);
             if (BasicGoods == null)
@@ -103,7 +121,6 @@ namespace OnlineStoresManager.WebApp.Pages.Admin
                     {
                         await GoodService.Delete(good.Id);
                     }
-                    SelectedGoods = new HashSet<BasicGood>();
                 }
             }).ContinueWith(async _ => await MudDataGrid!.ReloadServerData());
         }

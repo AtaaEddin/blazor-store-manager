@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OnlineStoresManager.Goods
+﻿namespace OnlineStoresManager.Goods
 {
     public enum BasicGoodFieldIdentifier
     {
@@ -14,6 +8,7 @@ namespace OnlineStoresManager.Goods
         Description = 4,
         Category = 5,
         Gategory = 6,
-        ImageUrl = 7
+        ImageUrl = 7,
+        Type
     }
 }

@@ -11,7 +11,8 @@
             ServerData="LoadGridData"
             RowsPerPage="5"
             SelectedItemsChanged=SelectedItemsChanged
-            MultiSelection=true>
+            MultiSelection=true
+            SortMode=SortMode.Single>
 
     <ToolBarContent>
         <MudText Typo="Typo.h6">
@@ -40,7 +41,7 @@
 
     <Columns>
         <SelectColumn T="BasicGood" />
-        <PropertyColumn Property="x => x.Type.ToString()" Title="@Localizer["Type"]" >
+        <PropertyColumn Property="x => x.Type" Title=@BasicGoodFieldIdentifier.Type.ToString() >
             <FooterTemplate>
                 @if (SelectedGoods?.Count != 0)
                 {
@@ -52,8 +53,8 @@
                 }
             </FooterTemplate>
         </PropertyColumn>
-        <PropertyColumn Property="x => x.Name" />
-        <PropertyColumn Property="x => x.Price" />
+        <PropertyColumn Property="x => x.Name" Title=@BasicGoodFieldIdentifier.Name.ToString() />
+        <PropertyColumn Property="x => x.Price" Title=@BasicGoodFieldIdentifier.Price.ToString()  />
         <TemplateColumn CellClass="d-flex justify-end">
             <CellTemplate>
                 <MudStack Row>

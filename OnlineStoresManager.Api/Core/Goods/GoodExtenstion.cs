@@ -9,17 +9,19 @@ namespace OnlineStoresManager.API.Goods
     {
         public static IQueryable<BasicGood> FilterBy(this IQueryable<BasicGood> goods, IBasicGoodFilter filter)
         {
-            switch (filter.Gategory)
+            switch (filter.Type)
             {
-                case GoodGategory.Clothes:
+                case GoodType.Shirt:
                     return goods
                         .OfType<Shirt>()
                         .FilterByInternal(filter);
 
-                case GoodGategory.Books:
+                case GoodType.ShortStory:
                     return goods
                         .OfType<ShortStory>()
                         .FilterByInternal(filter);
+
+                case null: return goods;
 
                 default: return goods.FilterByInternal<BasicGood>(filter);
             }
@@ -60,31 +62,34 @@ namespace OnlineStoresManager.API.Goods
                 case BasicGoodFieldIdentifier.Gategory:
                     return goods.OrderBy(g => g.Gategory, filter.SortOrder);
 
+                // Note: converting to double when using sqlite because sort by decimal is not supported
                 case BasicGoodFieldIdentifier.Price:
-                    return goods.OrderBy(g => g.Price, filter.SortOrder);
+                    return goods.OrderBy(g => g.Price != null ? (double)g.Price : 0, filter.SortOrder);
 
                 case BasicGoodFieldIdentifier.Name:
                     return goods.OrderBy(g => g.Name, filter.SortOrder);
 
-                case BasicGoodFieldIdentifier.Category:
+                case BasicGoodFieldIdentifier.Type:
                     return goods.OrderBy(g => g.Type, filter.SortOrder);
 
                 default: break;
             }
 
-            switch (filter.Gategory)
+            switch (filter.Type)
             {
-                case GoodGategory.Clothes:
+                case GoodType.Shirt:
                     return goods
                         .OfType<Shirt>()
                         .SortByInternal(filter);
 
-                case GoodGategory.Books:
+                case GoodType.ShortStory:
                     return goods
                         .OfType<ShortStory>()
                         .SortByInternal(filter);
 
-                default: throw new ArgumentException($"Not supported gategory {filter.Gategory}");
+                case null: return goods;
+
+                default: throw new ArgumentException($"Not supported type {filter.Type}");
             }
         }
 
