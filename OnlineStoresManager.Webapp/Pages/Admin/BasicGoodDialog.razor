@@ -7,7 +7,7 @@
                 <MudIcon Icon="@Icons.Material.Filled.Edit" Class="mr-3" />
                 @if (BasicGood?.Gategory != null)
                 {
-                    <span>@(IsNew ? @Localizer["New"] : Localizer["Edit"]) @Localizer[$"{BasicGood!.Type!.Value.ToString()}"] "@BasicGood!.Name"</span>
+                    <span>@(IsNew ? @Localizer["New"] : Localizer["Edit"]) @Localizer[$"{BasicGood!.Type!.Value.ToString()}"] @(!IsNew ? $"\"{BasicGood!.Name}\"" : "")</span>
                 }
             </MudText>
         </MudText>
@@ -28,7 +28,7 @@
                                    Label=@Localizer["Gategory"]
                                    Margin="Margin.Dense"
                                    Variant="Variant.Outlined"
-                                   AnchorOrigin="Origin.TopLeft">
+                                   AnchorOrigin="Origin.CenterCenter">
 
                             @foreach (var gategory in Enum.GetNames<GoodGategory>())
                             {

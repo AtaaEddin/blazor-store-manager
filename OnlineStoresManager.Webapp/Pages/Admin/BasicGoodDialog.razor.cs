@@ -36,7 +36,7 @@ namespace OnlineStoresManager.WebApp.Pages.Admin
 
         protected IMudValidation? GoodValidation { get; set; }
         protected DialogOptions? DialogOptions { get; set; }
-        protected bool IsNew => BasicGood == null;
+        protected bool IsNew => BasicGood?.Id == null || BasicGood?.Id == Guid.Empty;
         protected MudForm? MudFormRef { get; set; }
         protected MudSelect<string>? ShirtTypeSelectRef { get; set; }
 

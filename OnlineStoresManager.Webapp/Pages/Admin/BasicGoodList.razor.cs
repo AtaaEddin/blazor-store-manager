@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using MudBlazor;
 using OnlineStoresManager.Goods;
 using OnlineStoresManager.WebApp.Services.Goods;
@@ -12,13 +13,16 @@ namespace OnlineStoresManager.WebApp.Pages.Admin
     {
         [Parameter]
         public int? PageSize { get; set; }
-        
+
         [Inject]
         public GoodService GoodService { get; set; } = null!;
 
         private BasicGoodFilter _basicGoodFilter = new BasicGoodFilter();
         protected MudDataGrid<BasicGood>? MudDataGrid { get; set; }
 
+        protected string? SearchString { get; set; }
+        private HashSet<BasicGood> SelectedGoods { get; set; } = new HashSet<BasicGood>();
+ 
         protected Task ShowBasicGoodDialog(Guid? basicGoodId = null, GoodType? goodType = null)
         {
             return Await(async () =>
@@ -39,10 +43,11 @@ namespace OnlineStoresManager.WebApp.Pages.Admin
             });
         }
 
-        private async Task<GridData<BasicGood>> LoadGridData(GridState<BasicGood> state)
+        protected async Task<GridData<BasicGood>> LoadGridData(GridState<BasicGood> state)
         {
             _basicGoodFilter.PageIndex = state.Page;
             _basicGoodFilter.PageSize = state.PageSize;
+            _basicGoodFilter.SearchText = SearchString ?? string.Empty;
 
             var BasicGoods = await GoodService.Find(_basicGoodFilter);
             if (BasicGoods == null)
@@ -59,7 +64,41 @@ namespace OnlineStoresManager.WebApp.Pages.Admin
             return data;
         }
 
-        protected Task RefreshGrid() => Await(async () =>  await MudDataGrid!.ReloadServerData());
-        
+        protected Task RefreshGrid() => Await(async () => await MudDataGrid!.ReloadServerData());
+
+        protected Task OnSearchTextBoxKeyPress(KeyboardEventArgs args)
+        {
+            return Await(async () =>
+            {
+                if (args.Key == KeyboardKeys.Enter)
+                {
+                    await MudDataGrid!.ReloadServerData();
+                }
+            });
+        }
+
+        protected Task DeleteGood(BasicGood basicGood)
+        {
+            return Await(async () =>
+            {
+                await GoodService.Delete(basicGood.Id);
+            });
+        }
+
+        protected Task DeleteSelectedGoods()
+        {
+            return Await(async () =>
+            {
+                foreach(var good in SelectedGoods)
+                {
+                    await DeleteGood(good);
+                }
+            });
+        }
+
+        protected void SelectedItemsChanged(HashSet<BasicGood> items)
+        {
+            SelectedGoods = items;
+        }
     }
 }
