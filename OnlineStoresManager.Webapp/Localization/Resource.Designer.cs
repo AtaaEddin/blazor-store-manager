@@ -176,5 +176,14 @@ namespace OnlineStoresManager.WebApp.Localization {
                 return ResourceManager.GetString("Type", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        internal static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
+            }
+        }
     }
 }

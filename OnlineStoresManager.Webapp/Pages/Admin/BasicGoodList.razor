@@ -14,14 +14,34 @@
             MultiSelection=true>
 
     <ToolBarContent>
-        <MudGrid Class="p-0">
-            <MudItem xs="12" sm="3">
-                <MudText Typo="Typo.h6">
-                    Goods in Store
-                    <MudIconButton Size="@Size.Large" Icon="@Icons.Material.Outlined.AddCircle" Color="Color.Primary" OnClick=@(async (e) => await ShowBasicGoodDialog()) />
-                </MudText>
-            </MudItem>
-            <MudItem xs="12" sm="2" Class="Mud-DataGrid-action-btns-pos">
+        <MudText Typo="Typo.h6">
+            Goods in Store
+            <MudIconButton Size="@Size.Large" Icon="@Icons.Material.Outlined.AddCircle" Color="Color.Primary" OnClick=@(async (e) => await ShowBasicGoodDialog()) />
+        </MudText>
+        <MudSpacer />
+        <MudText Style="width: 90px !important;" Class="mr-2">
+            <MudSelect T="string"
+                        Disabled=true
+                        Value=FileType.Pdf.ToString()
+                        Label=@Localizer["Export"]
+                        Margin="Margin.Dense"
+                        Variant="Variant.Outlined"
+                        AnchorOrigin="Origin.CenterCenter">
+                @foreach (var fileType in Enum.GetNames<FileType>())
+                {
+                    @* <MudSelectItem Value=fileType @onclick=@(e => Export(fileType)/> *@
+                    <MudSelectItem Value=fileType />
+                }
+            </MudSelect>
+        </MudText>
+        <MudTextField @onkeypress=OnSearchTextBoxKeyPress @bind-Value=SearchString Placeholder="Search" Adornment="Adornment.Start" Immediate="true"
+                                AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+
+    <Columns>
+        <SelectColumn T="BasicGood" />
+        <PropertyColumn Property="x => x.Type.ToString()" Title="@Localizer["Type"]" >
+            <FooterTemplate>
                 @if (SelectedGoods?.Count != 0)
                 {
                     <MudButton OnClick=@(async e => await DeleteSelectedGoods())
@@ -30,33 +50,8 @@
                         @Localizer["Delete"]
                     </MudButton>
                 }
-            </MudItem>
-            <MudItem xs="12" sm="2" Class="Mud-DataGrid-action-btns-pos">
-                <MudSelect T="string"
-                           Disabled=true
-                           Value=FileType.Pdf.ToString()
-                           Label=@Localizer["Export"]
-                           Margin="Margin.Dense"
-                           Variant="Variant.Outlined"
-                           AnchorOrigin="Origin.CenterCenter">
-                    @foreach (var fileType in Enum.GetNames<FileType>())
-                    {
-                        @* <MudSelectItem Value=fileType @onclick=@(e => Export(fileType)/> *@
-                        <MudSelectItem Value=fileType />
-                    }
-                </MudSelect>
-            </MudItem>
-            <MudItem xs="12" sm="4">
-                <MudTextField @onkeypress=OnSearchTextBoxKeyPress @bind-Value=SearchString Placeholder="Search" Adornment="Adornment.Start" Immediate="true"
-                                AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
-            </MudItem>
-            
-        </MudGrid>
-    </ToolBarContent>
-
-    <Columns>
-        <SelectColumn T="BasicGood" />
-        <PropertyColumn Property="x => x.Type.ToString()" Title="@Localizer["Type"]" />
+            </FooterTemplate>
+        </PropertyColumn>
         <PropertyColumn Property="x => x.Name" />
         <PropertyColumn Property="x => x.Price" />
         <TemplateColumn CellClass="d-flex justify-end">

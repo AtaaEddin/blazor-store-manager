@@ -34,9 +34,3 @@
 .mud-divider {
     border: revert !important;
 }
-
-.Mud-DataGrid-action-btns-pos {
-    display: inline;
-    text-align: end;
-    align-self: center;
-}

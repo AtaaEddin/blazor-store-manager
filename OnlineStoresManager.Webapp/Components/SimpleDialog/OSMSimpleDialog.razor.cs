@@ -13,6 +13,9 @@ namespace OnlineStoresManager.WebApp.Components.SimpleDialog
 
         [Parameter] public Color Color { get; set; }
 
+        [Parameter]
+        public EventCallback<bool> IsConfirmedCallBack { get; set; }
+
         void Submit() => MudDialog?.Close(DialogResult.Ok(true));
         void Cancel() => MudDialog?.Cancel();
     }

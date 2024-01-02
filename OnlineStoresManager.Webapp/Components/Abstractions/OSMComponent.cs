@@ -97,5 +97,26 @@ namespace OnlineStoresManager.WebApp
                 await (JsModule?.DisposeAsync() ?? ValueTask.CompletedTask);
             }
         }
+
+        protected async Task<bool> ShowDeleteConfimationDialog(string ContentText)
+        {
+            var parameters = new DialogParameters<OSMSimpleDialog>
+                {
+                    { x => x.ContentText, ContentText },
+                    { x => x.ButtonText, Resource.Yes },
+                    { x => x.Color, Color.Error }
+                };
+
+            var dialog = await DialogService.ShowAsync<OSMSimpleDialog>("Error", parameters);
+            var result = await dialog.Result;
+
+            if (!result.Canceled)
+            {
+                bool.TryParse(result.Data.ToString(), out bool deleteConfirmed);
+                return deleteConfirmed;
+            }
+
+            return false;
+        }
     }
 }

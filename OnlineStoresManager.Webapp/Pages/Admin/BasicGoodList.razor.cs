@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Components.Web;
 using MudBlazor;
 using OnlineStoresManager.Goods;
+using OnlineStoresManager.Goods.Books;
+using OnlineStoresManager.WebApp.Components.SimpleDialog;
+using OnlineStoresManager.WebApp.Localization;
 using OnlineStoresManager.WebApp.Services.Goods;
 using System;
 using System.Collections.Generic;
@@ -81,19 +84,28 @@ namespace OnlineStoresManager.WebApp.Pages.Admin
         {
             return Await(async () =>
             {
-                await GoodService.Delete(basicGood.Id);
-            });
+                var deleteConfirmed = await ShowDeleteConfimationDialog(Localizer["DeleteGood"]);
+                if (deleteConfirmed)
+                {
+                    await GoodService.Delete(basicGood.Id);
+                }
+            }).ContinueWith(async _ => await MudDataGrid!.ReloadServerData());
         }
 
         protected Task DeleteSelectedGoods()
         {
             return Await(async () =>
             {
-                foreach(var good in SelectedGoods)
+                var deleteConfirmed = await ShowDeleteConfimationDialog(Localizer["DeleteSelectedGood"]);
+                if (deleteConfirmed)
                 {
-                    await DeleteGood(good);
+                    foreach (var good in SelectedGoods)
+                    {
+                        await GoodService.Delete(good.Id);
+                    }
+                    SelectedGoods = new HashSet<BasicGood>();
                 }
-            });
+            }).ContinueWith(async _ => await MudDataGrid!.ReloadServerData());
         }
 
         protected void SelectedItemsChanged(HashSet<BasicGood> items)

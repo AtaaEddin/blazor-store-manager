@@ -6,6 +6,8 @@ using OnlineStoresManager.Abstractions;
 using OnlineStoresManager.Goods;
 using OnlineStoresManager.Goods.Clothes;
 using OnlineStoresManager.WebApp.Components.Dialog;
+using OnlineStoresManager.WebApp.Components.SimpleDialog;
+using OnlineStoresManager.WebApp.Localization;
 using OnlineStoresManager.WebApp.Services.Goods;
 
 using System;
