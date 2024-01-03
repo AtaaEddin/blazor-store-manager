@@ -4,10 +4,7 @@ using MudBlazor;
 
 using OnlineStoresManager.Abstractions;
 using OnlineStoresManager.Goods;
-using OnlineStoresManager.Goods.Clothes;
 using OnlineStoresManager.WebApp.Components.Dialog;
-using OnlineStoresManager.WebApp.Components.SimpleDialog;
-using OnlineStoresManager.WebApp.Localization;
 using OnlineStoresManager.WebApp.Services.Goods;
 
 using System;
@@ -64,7 +61,7 @@ namespace OnlineStoresManager.WebApp.Pages.Admin
         {
             await MudFormRef!.Validate();
 
-            if(MudFormRef.IsValid)
+            if (MudFormRef.IsValid)
             {
                 BasicGood? saved = IsNew
                     ? await GoodService.Create(BasicGood!)

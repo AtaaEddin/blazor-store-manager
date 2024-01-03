@@ -9,19 +9,17 @@ namespace OnlineStoresManager.API.Goods
     {
         public static IQueryable<BasicGood> FilterBy(this IQueryable<BasicGood> goods, IBasicGoodFilter filter)
         {
-            switch (filter.Type)
+            switch (filter)
             {
-                case GoodType.Shirt:
+                case ShirtFilter:
                     return goods
                         .OfType<Shirt>()
                         .FilterByInternal(filter);
 
-                case GoodType.ShortStory:
+                case ShortStoryFilter:
                     return goods
                         .OfType<ShortStory>()
                         .FilterByInternal(filter);
-
-                case null: return goods;
 
                 default: return goods.FilterByInternal<BasicGood>(filter);
             }

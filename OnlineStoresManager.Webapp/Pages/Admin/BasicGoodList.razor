@@ -12,7 +12,8 @@
             RowsPerPage="5"
             SelectedItemsChanged=SelectedItemsChanged
             MultiSelection=true
-            SortMode=SortMode.Single>
+            SortMode=SortMode.Single
+            FilterMode=DataGridFilterMode.ColumnFilterMenu>
 
     <ToolBarContent>
         <MudText Typo="Typo.h6">
@@ -41,7 +42,7 @@
 
     <Columns>
         <SelectColumn T="BasicGood" />
-        <PropertyColumn Property="x => x.Type" Title=@BasicGoodFieldIdentifier.Type.ToString() >
+        <PropertyColumn Property="x => x.Type" Title=@BasicGoodFieldIdentifier.Type.ToString() Filterable=true>
             <FooterTemplate>
                 @if (SelectedGoods?.Count != 0)
                 {
@@ -54,7 +55,7 @@
             </FooterTemplate>
         </PropertyColumn>
         <PropertyColumn Property="x => x.Name" Title=@BasicGoodFieldIdentifier.Name.ToString() />
-        <PropertyColumn Property="x => x.Price" Title=@BasicGoodFieldIdentifier.Price.ToString()  />
+        <PropertyColumn Property="x => x.Price" Title=@BasicGoodFieldIdentifier.Price.ToString()  Filterable=true/>
         <TemplateColumn CellClass="d-flex justify-end">
             <CellTemplate>
                 <MudStack Row>
