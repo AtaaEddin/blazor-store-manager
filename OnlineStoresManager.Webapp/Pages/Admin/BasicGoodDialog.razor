@@ -100,6 +100,70 @@
                             default: throw new ArgumentException($"Unsupported good gategory. {BasicGood.Type.ToString()}");
                         }
                     </MudItem>
+                    @if (BasicGood!.ImageUrls != null)
+                    {
+                        <MudItem xs="12">
+                            @foreach(var imgUri in BasicGood!.ImageUrls)
+                            {
+                                <MudItem sm="3" xs="12">
+                                    <MudImage Src=@imgUri Elevation="25" Class="rounded-lg" />
+                                </MudItem>
+                            }
+                        </MudItem>
+                    }
+                    <MudItem xs="12">
+                        <MudText Typo=Typo.h6>
+                            @Localizer["UploadNewImages"]
+                        </MudText>
+                        <MudDivider Class="mb-5" DividerType="DividerType.FullWidth" />
+                        <MudFileUpload T="IReadOnlyList<IBrowserFile>"
+                                              AppendMultipleFiles
+                         @bind-Files="Files"
+                         @bind-Files:after="@ClearDragClass"
+                                        For="@(() => Files)"
+                                        Hidden="@false"
+                                        InputClass="absolute mud-width-full mud-height-full overflow-hidden z-20"
+                                        InputStyle="opacity:0"
+                         @ondragenter="@SetDragClass"
+                         @ondragleave="@ClearDragClass"
+                         @ondragend="@ClearDragClass">
+                            <ButtonTemplate>
+                                <MudPaper Height="300px"
+                                          Outlined="true"
+                                          Class="@_dragClass">
+                                    <MudText Typo="Typo.h6">
+                                        Drag and drop files here or click
+                                    </MudText>
+                                    @foreach (var file in Files?.Select(file => file.Name) ?? Enumerable.Empty<string>())
+                                    {
+                                        <MudChip Color="Color.Dark"
+                                                 Text="@file" />
+                                    }
+                                </MudPaper>
+                                <MudToolBar DisableGutters="true"
+                                            Class="relative d-flex justify-end gap-4 z-30">
+                                    <MudButton HtmlTag="label"
+                                               Color="Color.Primary"
+                                               for="@context.Id"
+                                               Variant="Variant.Filled">
+                                        Open file picker
+                                    </MudButton>
+        @*                             <MudButton OnClick="@Upload"
+                                               Color="Color.Primary"
+                                               Disabled="@(Files is null || !Files.Any())"
+                                               Variant="Variant.Filled">
+                                        Upload
+                                    </MudButton> *@
+                                    <MudButton OnClick="@context.Actions.ClearAsync"
+                                               Color="Color.Error"
+                                               Disabled="@(Files is null || !Files.Any())"
+                                               Variant="Variant.Filled">
+                                        Clear
+                                    </MudButton>
+                                </MudToolBar>
+                            </ButtonTemplate>
+                        </MudFileUpload>
+                    </MudItem>
                 </MudGrid>
             </MudForm>
         </MudContainer>

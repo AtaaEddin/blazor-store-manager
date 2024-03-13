@@ -83,5 +83,12 @@ namespace OnlineStoresManager.WebApp
                 ? response.Content.ReadFromJsonAsync<T>(_jsonOptions)
                 : Task.FromResult(default(T));
         }
+
+        protected Task<string> ReadAsStringAsync(HttpResponseMessage response)
+        {
+            return response.StatusCode != System.Net.HttpStatusCode.NoContent
+                ? response.Content.ReadAsStringAsync()
+                : Task.FromResult(string.Empty);
+        }
     }
 }

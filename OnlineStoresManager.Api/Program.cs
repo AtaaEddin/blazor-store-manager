@@ -1,10 +1,14 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+
 using OnlineStoresManager.Abstractions;
 using OnlineStoresManager.API;
+using OnlineStoresManager.API.Core.images;
 using OnlineStoresManager.API.Db;
+
 using Serilog;
+
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -20,6 +24,7 @@ try
 {
     WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
     IdentityConfiguration identityConfiguration = builder.Configuration.Bind<IdentityConfiguration>("Identity");
+    UploadImageConfiguration uploadImageConfiguration = builder.Configuration.Bind<UploadImageConfiguration>("uploadImageConfig");
 
     builder.Services
         .AddControllersWithViews()
@@ -33,7 +38,7 @@ try
         });
 
     builder.Services.AddRazorPages();
-    builder.Services.AddOnlineStoresManagerCore(identityConfiguration);
+    builder.Services.AddOnlineStoresManagerCore(identityConfiguration, uploadImageConfiguration);
 
     builder.Services
         .AddDbContext<AppDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("OnlineStoresManagerDb")));

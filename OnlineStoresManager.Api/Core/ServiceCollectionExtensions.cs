@@ -1,4 +1,5 @@
-﻿using OnlineStoresManager.API.Goods;
+﻿using OnlineStoresManager.API.Core.images;
+using OnlineStoresManager.API.Goods;
 
 namespace OnlineStoresManager.API
 {
@@ -6,12 +7,14 @@ namespace OnlineStoresManager.API
     {
         public static IServiceCollection AddOnlineStoresManagerCore(
             this IServiceCollection services,
-            IdentityConfiguration identityConfiguration)
+            IdentityConfiguration identityConfiguration,
+            UploadImageConfiguration uploadImageConfiguration)
         {
             return services
                 .OnlineStoresManagerGoods()
                 .OnlineStoresManagerCommon()
-                .OnlineStoresManagerIdentity(identityConfiguration);
+                .OnlineStoresManagerIdentity(identityConfiguration)
+                .OnlineStoresManagerImageUpload(uploadImageConfiguration);
         }
 
         private static IServiceCollection OnlineStoresManagerGoods(this IServiceCollection services)
@@ -32,6 +35,13 @@ namespace OnlineStoresManager.API
             return services
                 .AddSingleton<IdentityConfiguration>(identityConfiguration)
                 .AddScoped<IdentityService>();
+        }
+
+        private static IServiceCollection OnlineStoresManagerImageUpload(this IServiceCollection services, UploadImageConfiguration uploadImageConfiguration)
+        {
+            return services
+                .AddSingleton<UploadImageConfiguration>(uploadImageConfiguration)
+                .AddScoped<ImageService>();
         }
     }
 }

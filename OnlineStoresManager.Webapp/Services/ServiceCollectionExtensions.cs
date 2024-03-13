@@ -1,15 +1,16 @@
-﻿using OnlineStoresManager.Abstractions;
-
-using Microsoft.AspNetCore.Components.Authorization;
+﻿using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+
+using MudBlazor.Services;
+
+using OnlineStoresManager.Abstractions;
+using OnlineStoresManager.WebApp.Services.Goods;
+using OnlineStoresManager.WebApp.Services;
 
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using OnlineStoresManager.WebApp.Services.Goods;
-using MudBlazor;
-using MudBlazor.Services;
 
 namespace OnlineStoresManager.WebApp
 {
@@ -31,9 +32,19 @@ namespace OnlineStoresManager.WebApp
             services
                 .AddJsonOptions()
                 .AddOnlineStoresManagerGoods(environment)
-                .AddOnlineStoresManagerIdentity(environment);
+                .AddOnlineStoresManagerIdentity(environment)
+                .AddOnlineStoresManagerImageUpload(environment);
 
             services.AddScoped<LocalStorage>();
+
+            return services;
+        }
+
+        private static IServiceCollection  AddOnlineStoresManagerImageUpload(this IServiceCollection services, IWebAssemblyHostEnvironment environment)
+        {
+            services
+                .AddHttpClient<ImageService>(client => client.BaseAddress = new Uri($"{environment.BaseAddress}api/image/"))
+                .AddHttpMessageHandler<ServiceClientAuthenticator>();
 
             return services;
         }
